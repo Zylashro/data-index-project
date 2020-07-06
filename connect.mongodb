@@ -1,0 +1,14 @@
+use('MS3DB')
+
+db.enemyIndexMDB.insertOne({
+    'enemy_code': 'test-02',
+    'name': 'test name',
+    'attack_type': 'melee',
+    'level': 'normal',
+    'endurance': 'a',
+    'attack': 'b',
+    'defense': 'c',
+    'resist': 's',
+    'description': 'Some random description.',
+    'ability': 'Ability description.'
+})
