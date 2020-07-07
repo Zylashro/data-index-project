@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Hey this is a test for both flask and mongo!</h1>
-    {% for enemy in enemyIndex %}
-        {{enemyIndex.enemy_code}}<br>
-        {{enemyIndex.name}}
+    {% for enemy in enemyIndexMDB %}
+        {{enemyIndexMDB.enemy_code}}<br>
+        {{enemyIndexMDB.name}}
     {% endfor %}
 {% endblock %}

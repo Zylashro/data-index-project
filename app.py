@@ -14,8 +14,8 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def show_enemies():
-    enemyIndex = mongo.db.enemyIndexMDB.find()
-    return render_template('enemyIndex.html', enemyIndex=enemyIndex)
+    enemyIndexMDB = mongo.db.enemyIndexMDB.find()
+    return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
