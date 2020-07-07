@@ -12,7 +12,7 @@ app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
 
-@app.route('/', methods=['POST'])
+@app.route('/')
 def show_enemies():
     enemyIndex = mongo.db.enemyIndexMDB.find()
     return render_template('enemyIndex.html', enemyIndex=enemyIndex)
