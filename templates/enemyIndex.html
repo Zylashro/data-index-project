@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Hey this is a test for both flask and mongo!</h1>
     {% for enemy in enemyIndexMDB %}
-        {{enemyIndexMDB.enemy_code}}<br>
-        {{enemyIndexMDB.name}}
+        {{enemy.enemy_code}}<br>
+        {{enemy.name}}
     {% endfor %}
 {% endblock %}
