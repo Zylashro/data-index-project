@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-{% for enemy in enemyIndexMDB %}
-    {{enemyIndexMDB.enemy_code}}
-    {{enemyIndexMDB.name}}
-{% endfor %}
+{% block content %}
+    {% for enemy in enemyIndexMDB %}
+        {{enemyIndexMDB.enemy_code}}
+        {{enemyIndexMDB.name}}
+    {% endfor %}
+{% endblock %}
