@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.5;
+    height: 100%;
+}
+
+/* Navigation Bar */
+
+.navbar__container {
+    height: 100vh;
+    width: 300px;
+    padding-top: 80px;
+    position: fixed;
+    transform: translateX(0%);
+}
+
+.navbar__site-icon {
+    height: 256px;
+    padding: 32px;
+}
+
+.navbar__list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+.navbar__item {
+    min-height: 40px;
+    align-items: center;
+    display: flex;
+    flex: 1 1 100%;
+    outline: none;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 8px;
+    margin-bottom: 8px;
+}
+
+.navbar__item:hover {
+    opacity: .12;
+}
+
+.navbar__link {
+    color: #444444;
+}
+
+.navbar__icon {
+    color: #444444;
+    justify-content: center;
+}
+
+.selected {
+    opacity: .33;
+}
+
+/* Home */
+
+.home__about-container {
+    border: 1px #444444;
+    border-radius: 4px;
+    box-shadow: -8px 9px 5px -6px rgba(0,0,0,0.75);
+}
+
+.home__text {
+
+}
+
+.home__about-icon {
+
+}
+
+.home__div-container {
+    border: 1px #444444;
+    border-radius: 4px;
+    box-shadow: -8px 9px 5px -6px rgba(0,0,0,0.75);
+}
+
+.home__source-link {
+
+}
+
+.home__source-icon {
+    height: 25px;
+    width: 25px;
+}
+
+/* Footer */
+
+.footer__container {
+    align-self: end;
+    padding: 15px 15px 5px 15px;
+    color: #ffffff;
+    background: #1565c0;
+    text-align: center;
+}
+
+.footer__heading {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.footer__social-links {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.footer__social-item {
+    padding: 16px;
+    font-size: 50px;
+}
+
+.footer__social-link {
+    color: #ffffff;
+}
+
+.footer__link-item:hover {
+    color: rgba(0, 0, 0, 0.5);
+}

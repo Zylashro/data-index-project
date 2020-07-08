@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
-if os.path.exists("env.py"):
+if os.path.exists('env.py'):
     import env
 
 
@@ -16,6 +16,11 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
+def home_page():
+    return render_template('home.html')
+
+
+@app.route('/enemy-list')
 def show_enemies():
     enemyIndexMDB = mongo.db.enemyIndexMDB.find()
     return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
