@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
     <nav class="navbar__container">
-        <a href="#">
-            <img src="#" alt="#" class="navbar__site-icon">
+        <a href="{{url_for('home_page')}}">
+            <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
         </a>
         <ul class="navbar__list">
             <li class="navbar__item selected">
-                <a href="#" class="navbar__link">
+                <a href="{{url_for('home_page')}}" class="navbar__link">
                     Home
                 </a>
                 <i class="fas fa-home navbar__icon"></i>
@@ -32,28 +32,29 @@
         </ul>
     </nav>
     <section class="home__container">
-        <div class="home__about-container">
+        <div class="home__div-container home__about-container">
+            <h1 class="home__about-heading">Title of project</h1>
             <p class="home__text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate corrupti cumque eaque aperiam! Ratione, consectetur eos alias hic nemo placeat?
             </p>
-            <a href="#" rel="noopener noreferrer">
-                <img src="#" alt="#" class="home__about-icon">
-            </a>
         </div>
+        <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="home__about-icon">
         <div class="home__div-container">
+            <h2 class="home__div-heading">Goal</h2>
             <p class="home__text">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, distinctio odit qui voluptatem dignissimos ut.
             </p>
         </div>
         <div class="home__div-container">
+            <h2 class="home__div-heading">Source / Get it</h2>
             <p class="home__text">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem, animi.
             </p>
             <a href="#" target="_blank" rel="noopener noreferrer" class="home__source-link">
-                <img src="#" alt="#" class="home__source-icon">
+                <img src="../static/assets/images/icons/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Apple Store banner" class="home__source-icon">
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer" class="home__source-link">
-                <img src="#" alt="#" class="home__source-icon">
+                <img src="../static/assets/images/icons/googleplay.png" alt="GooglePlay banner" class="home__source-icon">
             </a>
         </div>
     </section>
