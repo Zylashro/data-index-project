@@ -21,7 +21,7 @@ def home_page():
 
 
 @app.route('/enemy-list')
-def show_enemies():
+def enemy_index():
     enemyIndexMDB = mongo.db.enemyIndexMDB.find()
     return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 

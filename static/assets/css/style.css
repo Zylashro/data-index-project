@@ -76,7 +76,8 @@ body {
 
 /* Home */
 
-.home__container {
+.home__container, 
+.enemy-index__container {
     margin-left: 260px;
 }
 
@@ -109,6 +110,10 @@ body {
     height: 25px;
     width: 25px;
 }
+
+/* Enemy Index */
+
+
 
 /* Footer */
 
