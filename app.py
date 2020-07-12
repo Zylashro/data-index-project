@@ -16,6 +16,7 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
+@app.route('/home')
 def home_page():
     return render_template('home.html')
 
@@ -24,6 +25,12 @@ def home_page():
 def enemy_index():
     enemyIndexMDB = mongo.db.enemyIndexMDB.find()
     return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
+
+
+@app.route('/stage-list')
+def stage_index():
+    stageIndexMDB = mongo.db.stageIndexMDB.find()
+    return render_template('stageIndex.html', stageIndexMDB=stageIndexMDB)
 
 
 if __name__ == '__main__':
