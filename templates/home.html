@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <nav class="navbar__container">
-        <a href="{{url_for('home_page')}}">
-            <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-        </a>
+        <div class="navbar__site-icon-container">
+            <a href="{{url_for('home_page')}}">
+                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
+            </a>
+        </div>
         <ul class="navbar__list">
             <li class="navbar__item selected">
                 <a href="{{url_for('home_page')}}" class="navbar__link">
@@ -31,7 +33,7 @@
             </li>
         </ul>
     </nav>
-    <section class="home__container">
+    <section class="section__container">
         <div class="home__div-container home__about-container">
             <h1 class="home__about-heading">Title of project</h1>
             <p class="home__text">

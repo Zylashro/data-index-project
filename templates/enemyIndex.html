@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <nav class="navbar__container">
-        <a href="{{url_for('home_page')}}">
-            <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-        </a>
+        <div class="navbar__site-icon-container">
+            <a href="{{url_for('home_page')}}">
+                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
+            </a>
+        </div>
         <ul class="navbar__list">
             <li class="navbar__item">
                 <a href="{{url_for('home_page')}}" class="navbar__link">
@@ -31,111 +33,169 @@
             </li>
         </ul>
     </nav>
-    <section class="enemy-index__container">
-        <h2 class="enemy-index__heading">Enemy List</h2>
+    <section class="section__container">
+        <h2 class="section__heading">Enemy List</h2>
         <div class="search-bar">
             <input type="text" placeholder="Search...">
         </div>
-        <div class="filter-by">
-
+        <button class="filter-by__btn">
+            <i class="fas fa-filter"></i>
+        </button>
+        <!-- Will have a JS function when clicked will remove the hidden css style and
+            will display a little filter menu. -->
+        <!-- At the moment, filter selection will be done through buttons. Will look
+            into turning it into a multiple selection menu with a submit button. -->
+        <div class="filter-by__container hidden">
+            <button class="filter-by__selection-btn selected">
+                Show all
+            </button>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by attack type:
+                </h2>
+                <button class="filter-by__selection-btn">
+                    Melee
+                </button>
+                <button class="filter-by__selection-btn">
+                    Ranged
+                </button>
+                <button class="filter-by__selection-btn">
+                    Arts
+                </button>
+                <button class="filter-by__selection-btn">
+                    Melee / Ranged
+                </button>
+                <button class="filter-by__selection-btn">
+                    Melee / Arts
+                </button>
+                <button class="filter-by__selection-btn">
+                    Ranged / Arts
+                </button>
+            </div>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by enemy level:
+                </h2>
+                <button class="filter-by__selection-btn">
+                    Normal
+                </button>
+                <button class="filter-by__selection-btn">
+                    Elite
+                </button>
+                <button class="filter-by__selection-btn">
+                    Boss
+                </button>
+            </div>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by episode:
+                </h2>
+                <!-- Will add all episodes at a later date. -->
+                <button class="filter-by__selection-btn">
+                    Episode Name
+                </button>
+            </div>
+            <div class="close-btn">
+                <i class="fas fa-window-close"></i>
+            </div>
         </div>
-        <table>
+        <table class="table">
             <thead>
-                <tr class="table-row">
-                    <th class="table-heading hidden">
+                <tr class="table__row">
+                    <th class="table__heading hidden">
                         Portrait
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Enemy Code
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Name
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Type
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Level
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Endurance
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Strength
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Defense
                     </th>
-                    <th class="table-heading">
+                    <th class="table__heading">
                         Resist
                     </th>
-                    <th class="table-heading hidden">
+                    <th class="table__heading hidden">
                         More Info
                     </th>
                 </tr>
                 <tbody>
                     {% for enemy in enemyIndexMDB %}
-                        <tr class="table-row">
-                            <td class="table-cell">
+                        <tr class="table__row">
+                            <td class="table__cell">
                                 {{enemy.portrait}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.enemy_code}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.name}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.attack_type}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.level}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.endurance}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.attack}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.defense}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 {{enemy.resist}}
                             </td>
-                            <td class="table-cell">
+                            <td class="table__cell">
                                 <button>
                                     <i class="fas fa-info-circle"></i>
                                 </button>
                             </td>
                         </tr>
                         <div class="more-info__container hidden">
-                            <tr class="table-row">
-                                <td class="table-cell">
+                            <tr class="table__row">
+                                <td class="table__cell">
                                     {{enemy.portrait}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.enemy_code}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.name}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.attack_type}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.level}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.endurance}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.attack}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.defense}}
                                 </td>
-                                <td class="table-cell">
+                                <td class="table__cell">
                                     {{enemy.resist}}
                                 </td>
                                 <div class="more-info__text">
@@ -144,32 +204,48 @@
                                 <div class="more-info__text">
                                     <p>{{enemy.ability}}</p>
                                 </div>
-                                <div class="more-info__episode-showcase">
-                                    <label for="episode-select">
-                                        Enemy can be found on these stages:
-                                    </label>
-                                    <select name="episode-select" id="episode-select">
-                                        <option value="" disabled>Episode select</option>
-                                        <!-- Jinja for loop containing the episodes in which enemy
-                                        shows up. Might be impossible/too complicated and instead
-                                        each episode will be hard-coded as an option regardless if
-                                        the enemy shows up or not. -->
-                                        <option value="#">#</option>
-                                    </select>
-                                    <!-- Jinja for loop containing stage info -->
-                                    <div class="more-info__stage-info">
+                            </tr>
+                            <div class="more-info__episode-showcase">
+                                <label for="episode-select">
+                                    Enemy can be found on these stages:
+                                </label>
+                                <select name="episode-select" id="episode-select">
+                                    <option value="" disabled>Episode select</option>
+                                    <!-- Jinja for loop containing the episodes in which enemy
+                                    shows up. Might be impossible/too complicated and instead
+                                    each episode will be hard-coded as an option regardless if
+                                    the enemy shows up or not. -->
+                                    <option value="#">#</option>
+                                </select>
+                                <!-- Jinja for loop containing stage info -->
+                                <div class="more-info__stage-info">
+                                    <a href="#">
                                         <p>Stage name</p>
                                         <p>Episode name</p>
-                                    </div>
+                                    </a>
                                 </div>
-                            </tr>
+                            </div>
+                            <div class="close-btn">
+                                <i class="fas fa-window-close"></i>
+                            </div>
                         </div>
                     {% endfor %}
                 </tbody>
             </thead>
         </table>
-        <button>
+        <div class="pagination">
+            <a href="#" class="page-btn" id="prev-btn">
+                <i class="fas fa-backward"></i>
+            </a>
+            <span id="page">
+                <!-- Figure out how to update page number with Jinja -->
+            </span>
+            <a href="#" class="page-btn" id="next-btn">
+                <i class="fas fa-forward"></i>
+            </a>
+        </div>
+        <div id="backToTop">
             <i class="fas fa-chevron-circle-up"></i>
-        </button>
+        </div>
     </section>
 {% endblock %}
