@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+    <nav class="navbar__container">
+        <div class="navbar__site-icon-container">
+            <a href="{{url_for('home_page')}}">
+                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
+            </a>
+        </div>
+        <ul class="navbar__list">
+            <li class="navbar__item">
+                <a href="{{url_for('home_page')}}" class="navbar__link">
+                    Home
+                </a>
+                <i class="fas fa-home navbar__icon"></i>
+            </li>
+            <li class="navbar__item">
+                <a href="{{url_for('enemy_index')}}" class="navbar__link">
+                    Enemy Index
+                </a>
+                <i class="fas fa-address-book navbar__icon"></i>
+            </li>
+            <li class="navbar__item selected">
+                <a href="{{url_for('stage_index')}}" class="navbar__link">
+                    Stage Index
+                </a>
+                <i class="fas fa-box navbar__icon"></i>
+            </li>
+            <li class="navbar__item">
+                <a href="#" class="navbar__link">
+                    Statistics
+                </a>
+                <i class="fas fa-chart-pie navbar__icon"></i>
+            </li>
+        </ul>
+    </nav>
+    <section class="section__container">
+        <h2 class="section__heading">Stage List</h2>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <button class="filter-by__btn">
+            <i class="fas fa-filter"></i>
+        </button>
+        <!-- Will have a JS function when clicked will remove the hidden css style and
+            will display a little filter menu. -->
+        <!-- At the moment, filter selection will be done through buttons. Will look
+            into turning it into a multiple selection menu with a submit button. -->
+        <div class="filter-by__container hidden">
+            <button class="filter-by__selection-btn selected">
+                Show all
+            </button>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by episode:
+                </h2>
+                <button class="filter-by__selection-btn">
+                    Episode Name
+                </button>
+            <div class="close-btn">
+                <i class="fas fa-window-close"></i>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr class="table__row">
+                    <th class="table__heading">
+                        Stage Code
+                    </th>
+                    <th class="table__heading">
+                        Name
+                    </th>
+                    <th class="table__heading">
+                        Episode Name
+                    </th>
+                    <th class="table__heading">
+                        Total enemies in stage
+                    </th>
+                    <th class="table__heading hidden">
+                        More Info
+                    </th>
+                </tr>
+                <tbody>
+                    {% for stage in stageIndexMDB %}
+                        <tr class="table__row">
+                            <td class="table__cell">
+                                {{stage.stage_code}}
+                            </td>
+                            <td class="table__cell">
+                                {{stage.name}}
+                            </td>
+                            <td class="table__cell">
+                                {{stage.episode_name}}
+                            </td>
+                            <td class="table__cell">
+                                {{stage.total_enemies}}
+                            </td>
+                            <td class="table__cell">
+                                <button>
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <div class="more-info__container hidden">
+                            <tr class="table__row">
+                                <td class="table__cell">
+                                    {{stage.stage_code}}
+                                </td>
+                                <td class="table__cell">
+                                    {{stage.name}}
+                                </td>
+                                <td class="table__cell">
+                                    {{stage.episode_name}}
+                                </td>
+                                <td class="table__cell">
+                                    {{stage.total_enemies}}
+                                </td>
+                            </tr>
+                            <div class="more-info__enemy-showcase">
+                                <h2 class="section__heading">
+                                    Enemies on stage:
+                                </h2>
+                                {% for stage_info in stageIndexMDB %}
+                                <div class="more-info__enemy-info">
+                                    <a href="#">
+                                        <img src="#" alt="Portrait of enemy">
+                                        <p>{{stage_info.enemy_list.$id.name}}</p>
+                                        <p>{{stage_info.total_enemies}}x</p>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="close-btn">
+                                <i class="fas fa-window-close"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </tbody>
+            </thead>
+        </table>
+        <div class="pagination">
+            <a href="#" class="page-btn" id="prev-btn">
+                <i class="fas fa-backward"></i>
+            </a>
+            <span id="page">
+                <!-- Figure out how to update page number with Jinja -->
+            </span>
+            <a href="#" class="page-btn" id="next-btn">
+                <i class="fas fa-forward"></i>
+            </a>
+        </div>
+        <div id="backToTop">
+            <i class="fas fa-chevron-circle-up"></i>
+        </div>
+    </section>
+{% endblock %}
