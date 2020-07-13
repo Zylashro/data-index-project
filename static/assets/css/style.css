@@ -256,19 +256,19 @@ body {
 .table__row {
     border-color: #1565c0;
     border-bottom: 2px solid;
+    display: grid;
+    grid-auto-flow: column;
 }
 
 .table__heading {
     height: 50px;
     padding: 12px;
-    vertical-align: middle;
     font-weight: 700;
 }
 
 .table__cell {
     height: 100%;
     width: 100%;
-    vertical-align: middle;
     padding: 12px;
 }
 
