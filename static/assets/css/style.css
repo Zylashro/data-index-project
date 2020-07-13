@@ -234,11 +234,16 @@ body {
 }
 
 .table__heading {
+    height: 50px;
     padding: 12px;
+    vertical-align: middle;
     font-weight: 700;
 }
 
 .table__cell {
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
     padding: 12px;
 }
 
