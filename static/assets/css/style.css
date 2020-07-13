@@ -61,14 +61,18 @@ body {
 }
 
 .navbar__item:hover {
-    opacity: .12;
     color: #ffffff;
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, .12);
 }
 
 .navbar__link {
     margin: 0 24px;
     color: #444444;
+}
+
+.selected .navbar__link,
+.selected .navbar__icon {
+    color: #ffffff;
 }
 
 .navbar__link:hover,
@@ -77,6 +81,7 @@ body {
 }
 
 .navbar__icon {
+    margin-right: 16px;
     color: #444444;
     font-size: 20px;
 }
@@ -143,8 +148,7 @@ body {
 }
 
 .selected {
-    opacity: .33;
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, .33);
 }
 
 .search-bar {
@@ -187,6 +191,10 @@ body {
 .filter-by__btn {
     height: 30px;
     width: 30px;
+}
+
+.filter-by__btn {
+    opacity: 12;
 }
 
 .filter-by__container {
