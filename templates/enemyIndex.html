@@ -137,7 +137,7 @@
                     {% for enemy in enemyIndexMDB %}
                         <tr class="table__row">
                             <td class="table__cell">
-                                <img src="{{url_for('enemy.portrait')}}" alt="Portrait of enemy.">
+                                <img src="{{url_for('.enemy.portrait')}}" alt="Portrait of enemy.">
                             </td>
                             <td class="table__cell">
                                 {{enemy.enemy_code}}
