@@ -1,9 +1,12 @@
 
 const filterButton = document.getElementsByClassName("filter-by__btn");
 const filterContainer = document.getElementsByClassName("filter-by__container");
+const closeFilter = document.getElementsByClassName("close-btn");
 
-filterButton.addEventListener("click", hideAndShow);
+filterButton.onclick = () => {
+    filterContainer.classList.remove("hidden");
+};
 
-function hideAndShow(event) {
-    filterContainer.classList.replace("hidden", "")
-}
+closeFilter.onclick = () => {
+    filterContainer.classList.add("hidden");
+};
