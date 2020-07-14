@@ -13,7 +13,7 @@
                 </a>
                 <i class="fas fa-home navbar__icon"></i>
             </li>
-            <li class="navbar__item selected">
+            <li class="navbar__item">
                 <a href="{{url_for('enemy_index')}}" class="navbar__link">
                     Enemy Index
                 </a>
@@ -35,43 +35,71 @@
     </nav>
     <section class="more-info__container">
         <h2 class="section__heading">Enemy List</h2>
-        {% for enemy in enemyIndexMDB %}
-            <div class="more-info__inner-container" id={{enemy._id}}>
-                <div class="table__cell">
-                    {{enemy.portrait}}
+        <div class="table">
+            <div class="table__heading"></div>
+            <div class="table__heading">
+                Enemy Code
+            </div>
+            <div class="table__heading">
+                Name
+            </div>
+            <div class="table__heading">
+                Type
+            </div>
+            <div class="table__heading">
+                Level
+            </div>
+            <div class="table__heading">
+                Endurance
+            </div>
+            <div class="table__heading">
+                Strength
+            </div>
+            <div class="table__heading">
+                Defense
+            </div>
+            <div class="table__heading">
+                Resist
+            </div>
+            <div class="table__heading"></div>
+            {% for specific_enemy in enemy %}
+                <div class="more-info__inner-container" id={{enemy._id}}>
+                    <div class="table__cell">
+                        <img src="{{specific_enemy.portrait}}" alt="Portrait of enemy.">
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.enemy_code}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.name}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.attack_type}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.level}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.endurance}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.attack}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.defense}}
+                    </div>
+                    <div class="table__cell">
+                        {{specific_enemy.resist}}
+                    </div>
+                    <div class="more-info__text">
+                        <p>{{specific_enemy.description}}</p>
+                    </div>
+                    <div class="more-info__text">
+                        <p>{{specific_enemy.ability}}</p>
+                    </div>
                 </div>
-                <div class="table__cell">
-                    {{enemy.enemy_code}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.name}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.attack_type}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.level}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.endurance}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.attack}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.defense}}
-                </div>
-                <div class="table__cell">
-                    {{enemy.resist}}
-                </div>
-                <div class="more-info__text">
-                    <p>{{enemy.description}}</p>
-                </div>
-                <div class="more-info__text">
-                    <p>{{enemy.ability}}</p>
-                </div>
-            </div>>
-        {% endfor %}
+            {% endfor %}
+        </div>
         <div class="more-info__episode-showcase">
             <label for="episode-select">
                 Enemy can be found on these stages:

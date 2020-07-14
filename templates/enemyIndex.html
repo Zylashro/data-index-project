@@ -155,9 +155,9 @@
                     {{enemy.resist}}
                 </div>
                 <div class="table__cell">
-                    <button class="js-show-more" data-id={{enemy._id}}>
+                    <a href="{{url_for('more_info_enemy', enemy_id=enemy._id)}}" class="more-info__btn">
                         <i class="fas fa-info-circle"></i>
-                    </button>
+                    </a>
                 </div>
             {% endfor %}
         </div>
