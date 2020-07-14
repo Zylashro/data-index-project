@@ -30,7 +30,7 @@ def enemy_index():
 @app.route('/enemy-list/<enemy_code>')
 def more_info_enemy(enemy_code):
     enemyIndexMDB = mongo.db.enemyIndexMDB.find()
-    enemy_code = mongo.db.enemyIndexMDB.find_one({'enemy_code'})
+    the_code = mongo.db.enemyIndexMDB.find({'_id': ObjectId(enemy_code)})
     return render_template('moreInfoEnemy.html', enemyIndexMDB=enemyIndexMDB)
 
 
