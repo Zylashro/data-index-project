@@ -68,6 +68,7 @@ body {
 .navbar__link {
     margin: 0 24px;
     color: #444444;
+    text-decoration: none;
 }
 
 .selected .navbar__link,
