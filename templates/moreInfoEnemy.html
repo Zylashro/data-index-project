@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+    <nav class="navbar__container">
+        <div class="navbar__site-icon-container">
+            <a href="{{url_for('home_page')}}">
+                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
+            </a>
+        </div>
+        <ul class="navbar__list">
+            <li class="navbar__item">
+                <a href="{{url_for('home_page')}}" class="navbar__link">
+                    Home
+                </a>
+                <i class="fas fa-home navbar__icon"></i>
+            </li>
+            <li class="navbar__item selected">
+                <a href="{{url_for('enemy_index')}}" class="navbar__link">
+                    Enemy Index
+                </a>
+                <i class="fas fa-address-book navbar__icon"></i>
+            </li>
+            <li class="navbar__item">
+                <a href="{{url_for('stage_index')}}" class="navbar__link">
+                    Stage Index
+                </a>
+                <i class="fas fa-box navbar__icon"></i>
+            </li>
+            <li class="navbar__item">
+                <a href="#" class="navbar__link">
+                    Statistics
+                </a>
+                <i class="fas fa-chart-pie navbar__icon"></i>
+            </li>
+        </ul>
+    </nav>
+    <section class="more-info__container">
+        <h2 class="section__heading">Enemy List</h2>
+        {% for enemy in enemyIndexMDB %}
+            <div class="more-info__inner-container" id={{enemy._id}}>
+                <div class="table__cell">
+                    {{enemy.portrait}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.enemy_code}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.name}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.attack_type}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.level}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.endurance}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.attack}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.defense}}
+                </div>
+                <div class="table__cell">
+                    {{enemy.resist}}
+                </div>
+                <div class="more-info__text">
+                    <p>{{enemy.description}}</p>
+                </div>
+                <div class="more-info__text">
+                    <p>{{enemy.ability}}</p>
+                </div>
+            </div>>
+        {% endfor %}
+        <div class="more-info__episode-showcase">
+            <label for="episode-select">
+                Enemy can be found on these stages:
+            </label>
+            <select name="episode-select" id="episode-select">
+                <option value="" disabled>Episode select</option>
+                <!-- Jinja for loop containing dive episodes in which enemy
+                shows up. Might be impossible/too complicated and instead
+                each episode will be hard-coded as an option regardless if
+                dive enemy shows up or not. -->
+                <option value="#">#</option>
+            </select>
+            <!-- Jinja for loop containing stage info -->
+            <div class="more-info__stage-info">
+                <a href="#">
+                    <p>Stage name</p>
+                    <p>Episode name</p>
+                </a>
+            </div>
+        </div>
+        <div class="close-btn">
+            <i class="fas fa-window-close"></i>
+        </div>
+    </section>
+{% endblock %}

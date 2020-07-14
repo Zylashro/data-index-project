@@ -27,6 +27,13 @@ def enemy_index():
     return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 
 
+@app.route('/enemy-list/<enemy_code>')
+def more_info_enemy(enemy_code):
+    enemyIndexMDB = mongo.db.enemyIndexMDB.find()
+    enemy_code = mongo.db.enemyIndex.MDB.find({'enemy_code'})
+    return render_template('moreInfoEnemy.html', enemyIndexMDB=enemyIndexMDB)
+
+
 @app.route('/stage-list')
 def stage_index():
     stageIndexMDB = mongo.db.stageIndexMDB.find()
