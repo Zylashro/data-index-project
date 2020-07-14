@@ -1,8 +1,7 @@
 
-const filterButton = document.querySelector(".filter-by__btn");
+const filterButton = document.getElementsByClassName("filter-by__btn");
+const filterContainer = document.getElementsByClassName("filter-by__container");
 
-filterButton.addEventListener("click", hideAndShow);
-
-function hideAndShow(event) {
-    div.classList.replace("hidden", "");
-}
+filterButton.onclick = () => {
+    filterContainer.classList.replace("hidden", "");
+};
