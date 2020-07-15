@@ -38,14 +38,14 @@
         <div class="search-bar">
             <input type="text" placeholder="Search...">
         </div>
-        <button class="filter-by__btn">
+        <button id="open-filter-btn" class="filter-by__btn">
             <i class="fas fa-filter"></i>
         </button>
         <!-- Will have a JS function when clicked will remove dive hidden css style and
             will display a little filter menu. -->
         <!-- At dive moment, filter selection will be done divrough buttons. Will look
             into turning it into a multiple selection menu widiv a submit button. -->
-        <div class="filter-by__container hidden">
+        <div id="filter-menu" class="filter-by__container hidden">
             <button class="filter-by__selection-btn selected">
                 Show all
             </button>
@@ -95,7 +95,7 @@
                     Episode Name
                 </button>
             </div>
-            <div class="close-btn">
+            <div id="close-filter-btn" class="close-btn">
                 <i class="fas fa-window-close"></i>
             </div>
         </div>
@@ -176,6 +176,4 @@
             <i class="fas fa-chevron-circle-up"></i>
         </div>
     </section>
-
-    <script type="text/javascript" src="{{url_for('static', filename='src/hideAndShow.js')}}"></script>
 {% endblock %}

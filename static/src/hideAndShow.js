@@ -1,9 +1,9 @@
 
-const filterButton = document.getElementsByClassName(".filter-by__btn");
-const filterContainer = document.getElementsByClassName(".filter-by__container");
-const closeFilter = document.getElementsByClassName(".close-btn");
+const openFilter = document.getElementById('open-filter-btn');
+const filterContainer = document.getElementById('filter-menu');
+const closeFilter = document.getElementById('close-filter-btn');
 
-filterButton.onclick = () => {
+openFilter.onclick = () => {
     filterContainer.classList.remove("hidden");
 };
 
