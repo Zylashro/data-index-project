@@ -30,8 +30,8 @@ def enemy_index():
 @app.route('/enemy-list', methods=['POST'])
 def search_enemyIndex():
     query = request.form['search']
-    enemy_code = mongo.db.enemyIndexMDB.find({'enemy_code': 1})
-    enemy_name = mongo.db.enemyIndexMDB.find({'name': 1})
+    enemy_code = mongo.db.enemyIndexMDB.find({'enemy_code': True})
+    enemy_name = mongo.db.enemyIndexMDB.find({'name': True})
     
     if query == enemy_code or query == enemy_name:
         return render_template('queryEnemy.html', enemy=enemy_code)
