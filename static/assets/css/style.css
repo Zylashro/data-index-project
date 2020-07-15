@@ -133,12 +133,9 @@ body {
 
 /* Misc */
 
-.enemy__container {
-    margin-left: 260px;
-    padding-top: 30px;
-}
-
-.stage__container {
+.enemy__container,
+.stage__container,
+.search-error__container {
     margin-left: 260px;
     padding-top: 30px;
 }
@@ -167,11 +164,20 @@ body {
     background-color: rgba(0, 0, 0, .33);
 }
 
-.search-bar {
-    padding: 6px;
+.search-bar,
+.search-btn {
+    padding: 6px 10px;
     margin-left: 16px;
     border: none;
     font-size: 17px;
+}
+
+.search-btn {
+    background: #ddd;
+}
+
+.search-btn:hover {
+    background: #ccc;
 }
 
 .close-btn {
