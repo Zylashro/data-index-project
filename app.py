@@ -27,6 +27,18 @@ def enemy_index():
     return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 
 
+@app.route('/enemy-list', methods=['POST'])
+def search_enemyIndex():
+    query = request.form['search']
+    enemy_code = mongo.db.enemyIndexMDB.find({'enemy_code': true})
+    enemy_name = mongo.db.enemyIndexMDB.find({'name': true})
+    
+    if query == enemy_code or query == enemy_name:
+        return render_template('queryEnemy.html', enemy=enemy_code)
+    else:
+        return render_template('searchError.html')
+
+
 @app.route('/enemy-list/<enemy_code>')
 def more_info_enemy(enemy_code):
     the_enemy = mongo.db.enemyIndexMDB.find({'_id': ObjectId(enemy_code)})
