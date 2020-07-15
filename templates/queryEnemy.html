@@ -129,33 +129,33 @@
                 Resist
             </div>
             <div class="table__heading"></div>
-            {% for enemy in enemyIndexMDB %}
+            {% for searched_enemy in enemy %}
                 <div class="table__cell">
-                    <img src="{{enemy.portrait}}" alt="Portrait of enemy.">
+                    <img src="{{searched_enemy.portrait}}" alt="Portrait of enemy.">
                 </div>
                 <div class="table__cell">
-                    {{enemy.enemy_code|upper}}
+                    {{searched_enemy.enemy_code|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.name|title}}
+                    {{searched_enemy.name|title}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.attack_type|capitalize}}
+                    {{searched_enemy.attack_type|capitalize}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.level|upper}}
+                    {{searched_enemy.level|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.endurance|upper}}
+                    {{searched_enemy.endurance|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.attack|upper}}
+                    {{searched_enemy.attack|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.defense|upper}}
+                    {{searched_enemy.defense|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.resist|upper}}
+                    {{searched_enemy.resist|upper}}
                 </div>
                 <div class="table__cell">
                     <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}" class="more-info__btn">
