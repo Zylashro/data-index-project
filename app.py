@@ -32,9 +32,13 @@ def search_enemyIndex():
     query = request.form['search']
     enemy_code = mongo.db.enemyIndexMDB.find({'enemy_code': True})
     enemy_name = mongo.db.enemyIndexMDB.find({'name': True})
-    
+
+    stat = mongo.db.enemyIndexMDB.find({'attack': 'b'})
+    '''
     if query == enemy_code or query == enemy_name:
-        return render_template('queryEnemy.html', enemy=enemy_code)
+    '''
+    if query == stat:
+        return render_template('queryEnemy.html', enemy=stat)
     else:
         return render_template('searchError.html')
 
