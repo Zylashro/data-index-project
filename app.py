@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -29,15 +29,18 @@ def enemy_index():
 
 @app.route('/enemy-list', methods=['POST'])
 def search_enemyIndex():
-    query = request.form['search']
+    query = request.form['attack']
     enemy_code = mongo.db.enemyIndexMDB.find({'enemy_code': True})
     enemy_name = mongo.db.enemyIndexMDB.find({'name': True})
 
     stat = mongo.db.enemyIndexMDB.find({'attack': 'b'})
+
+    result = query.jsonify()
+
     '''
     if query == enemy_code or query == enemy_name:
     '''
-    if query == stat:
+    if result == stat:
         return render_template('queryEnemy.html')
     else:
         return render_template('searchError.html')
