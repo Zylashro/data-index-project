@@ -35,7 +35,7 @@ def search_enemyIndex():
 
     stat = mongo.db.enemyIndexMDB.find({'attack': 'b'})
 
-    result = query.jsonify()
+    result = jsonify(query)
 
     '''
     if query == enemy_code or query == enemy_name:
