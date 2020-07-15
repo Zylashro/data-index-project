@@ -38,7 +38,7 @@ def search_enemyIndex():
     if query == enemy_code or query == enemy_name:
     '''
     if query == stat:
-        return render_template('queryEnemy.html', enemy=stat)
+        return render_template('queryEnemy.html')
     else:
         return render_template('searchError.html')
 
