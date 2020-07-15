@@ -131,28 +131,28 @@
                     <img src="{{enemy.portrait}}" alt="Portrait of enemy.">
                 </div>
                 <div class="table__cell">
-                    {{enemy.enemy_code}}
+                    {{enemy.enemy_code|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.name}}
+                    {{enemy.name|title}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.attack_type}}
+                    {{enemy.attack_type|capitalize}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.level}}
+                    {{enemy.level|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.endurance}}
+                    {{enemy.endurance|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.attack}}
+                    {{enemy.attack|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.defense}}
+                    {{enemy.defense|upper}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.resist}}
+                    {{enemy.resist|upper}}
                 </div>
                 <div class="table__cell">
                     <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}" class="more-info__btn">
@@ -166,7 +166,7 @@
                 <i class="fas fa-backward"></i>
             </a>
             <span id="page">
-                <!-- Figure out how to update page number widiv Jinja -->
+                <!-- Figure out how to update page number with Jinja -->
             </span>
             <a href="#" class="page-btn" id="next-btn">
                 <i class="fas fa-forward"></i>
@@ -177,5 +177,5 @@
         </div>
     </section>
 
-    <script type="text/javascript" src="{{url_for('static', filename='src/hideAndShow.js')}}"></script>
+    <script type="text/javascript" src="../static/src/hideAndShow.js"></script>
 {% endblock %}
