@@ -38,14 +38,14 @@
         <div class="search-bar">
             <input type="text" placeholder="Search...">
         </div>
-        <button class="filter-by__btn">
+        <button id="open-filter-btn" class="filter-by__btn">
             <i class="fas fa-filter"></i>
         </button>
         <!-- Will have a JS function when clicked will remove the hidden css style and
             will display a little filter menu. -->
         <!-- At the moment, filter selection will be done through buttons. Will look
             into turning it into a multiple selection menu with a submit button. -->
-        <div class="filter-by__container hidden">
+        <div id="filter-menu" class="filter-by__container hidden">
             <button class="filter-by__selection-btn selected">
                 Show all
             </button>
@@ -56,87 +56,75 @@
                 <button class="filter-by__selection-btn">
                     Episode Name
                 </button>
-            <div class="close-btn">
+            <div id="close-filter-btn" class="close-btn">
                 <i class="fas fa-window-close"></i>
             </div>
         </div>
-        <table class="table">
-            <thead>
-                <tr class="table__row">
-                    <th class="table__heading">
-                        Stage Code
-                    </th>
-                    <th class="table__heading">
-                        Name
-                    </th>
-                    <th class="table__heading">
-                        Episode Name
-                    </th>
-                    <th class="table__heading">
-                        Total enemies in stage
-                    </th>
-                    <th class="table__heading hidden">
-                        More Info
-                    </th>
-                </tr>
-                <tbody>
-                    {% for stage in stageIndexMDB %}
-                        <tr class="table__row">
-                            <td class="table__cell">
-                                {{stage.stage_code}}
-                            </td>
-                            <td class="table__cell">
-                                {{stage.name}}
-                            </td>
-                            <td class="table__cell">
-                                {{stage.episode_name}}
-                            </td>
-                            <td class="table__cell">
-                                {{stage.total_enemies}}
-                            </td>
-                            <td class="table__cell">
-                                <button>
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <div class="more-info__container hidden">
-                            <tr class="table__row">
-                                <td class="table__cell">
-                                    {{stage.stage_code}}
-                                </td>
-                                <td class="table__cell">
-                                    {{stage.name}}
-                                </td>
-                                <td class="table__cell">
-                                    {{stage.episode_name}}
-                                </td>
-                                <td class="table__cell">
-                                    {{stage.total_enemies}}
-                                </td>
-                            </tr>
-                            <div class="more-info__enemy-showcase">
-                                <h2 class="section__heading">
-                                    Enemies on stage:
-                                </h2>
-                                {% for stage_info in stageIndexMDB %}
-                                <div class="more-info__enemy-info">
-                                    <a href="#">
-                                        <img src="#" alt="Portrait of enemy">
-                                        <p>{{stage_info.enemy_list.id.name}}</p>
-                                        <p>x</p>
-                                    </a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="close-btn">
-                                <i class="fas fa-window-close"></i>
-                            </div>
+        <div class="table">
+            <div class="table__heading">
+                Stage Code
+            </div>
+            <div class="table__heading">
+                Name
+            </div>
+            <div class="table__heading">
+                Episode Name
+            </div>
+            <div class="table__heading">
+                Total enemies in stage
+            </div>
+            <div class="table__heading"></div>
+            {% for stage in stageIndexMDB %}
+                    <div class="table__cell">
+                        {{stage.stage_code|upper}}
+                    </div>
+                    <div class="table__cell">
+                        {{stage.name|title}}
+                    </div>
+                    <div class="table__cell">
+                        {{stage.episode_name|title}}
+                    </div>
+                    <div class="table__cell">
+                        {{stage.total_enemies}}
+                    </div>
+                    <div class="table__cell">
+                        <button>
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                <div class="more-info__container hidden">
+                        <div class="table__cell">
+                            {{stage.stage_code}}
                         </div>
-                    {% endfor %}
-                </tbody>
-            </thead>
-        </table>
+                        <div class="table__cell">
+                            {{stage.name}}
+                        </div>
+                        <div class="table__cell">
+                            {{stage.episode_name}}
+                        </div>
+                        <div class="table__cell">
+                            {{stage.total_enemies}}
+                        </div>
+                    <div class="more-info__enemy-showcase">
+                        <h2 class="section__heading">
+                            Enemies on stage:
+                        </h2>
+                        {% for stage_info in stageIndexMDB %}
+                        <div class="more-info__enemy-info">
+                            <a href="#">
+                                <img src="#" alt="Portrait of enemy">
+                                <p>{{stage_info.enemy_list.id.name}}</p>
+                                <p>x</p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="close-btn">
+                        <i class="fas fa-window-close"></i>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         <div class="pagination">
             <a href="#" class="page-btn" id="prev-btn">
                 <i class="fas fa-backward"></i>
