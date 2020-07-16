@@ -49,55 +49,58 @@
         <!-- At dive moment, filter selection will be done divrough buttons. Will look
             into turning it into a multiple selection menu widiv a submit button. -->
         <div id="filter-menu" class="filter-by__container hidden">
-            <button class="filter-by__selection-btn selected">
-                Show all
-            </button>
-            <div class="filter-by__inner-container">
-                <h2 class="filter-by__heading">
-                    Filter by attack type:
-                </h2>
-                <button class="filter-by__selection-btn">
-                    Melee
-                </button>
-                <button class="filter-by__selection-btn">
-                    Ranged
-                </button>
-                <button class="filter-by__selection-btn">
-                    Arts
-                </button>
-                <button class="filter-by__selection-btn">
-                    Melee / Ranged
-                </button>
-                <button class="filter-by__selection-btn">
-                    Melee / Arts
-                </button>
-                <button class="filter-by__selection-btn">
-                    Ranged / Arts
-                </button>
-            </div>
-            <div class="filter-by__inner-container">
-                <h2 class="filter-by__heading">
-                    Filter by enemy level:
-                </h2>
-                <button class="filter-by__selection-btn">
-                    Normal
-                </button>
-                <button class="filter-by__selection-btn">
-                    Elite
-                </button>
-                <button class="filter-by__selection-btn">
-                    Boss
-                </button>
-            </div>
-            <div class="filter-by__inner-container">
-                <h2 class="filter-by__heading">
-                    Filter by episode:
-                </h2>
-                <!-- Will add all episodes at a later date. -->
-                <button class="filter-by__selection-btn">
-                    Episode Name
-                </button>
-            </div>
+            <form action="#" method="post">
+                <input type="checkbox" name="show-all" class="filter-by__selection-btn">
+                    Show all
+                </input>
+                <div class="filter-by__inner-container">
+                    <h2 class="filter-by__heading">
+                        Filter by attack type:
+                    </h2>
+                    <input type="checkbox" name="attack-type" class="filter-by__selection-btn">
+                        Melee
+                    </input>
+                    <input type="checkbox" name="attack-type" class="filter-by__selection-btn">
+                        Ranged
+                    </input>
+                    <input type="checkbox" name="attack-type" class="filter-by__selection-btn">
+                        Arts
+                    </input>
+                    <input type="checkbox" name="attack-type" class="filter-by__selection-btn">
+                        Melee / Ranged
+                    </input>
+                    <input type="checkbox" name="attack-type" class="filter-by__selection-btn">
+                        Melee / Arts
+                    </input>
+                    <input type="checkbox" name="attack-type" class="filter-by__selection-btn">
+                        Ranged / Arts
+                    </input>
+                </div>
+                <div class="filter-by__inner-container">
+                    <h2 class="filter-by__heading">
+                        Filter by enemy level:
+                    </h2>
+                    <input type="checkbox" name="level-type" class="filter-by__selection-btn">
+                        Normal
+                    </input>
+                    <input type="checkbox" name="level-type" class="filter-by__selection-btn">
+                        Elite
+                    </input>
+                    <input type="checkbox" name="level-type" class="filter-by__selection-btn">
+                        Boss
+                    </input>
+                </div>
+                <div class="filter-by__inner-container">
+                    <h2 class="filter-by__heading">
+                        Filter by episode:
+                    </h2>
+                    <!-- Will add all episodes at a later date. -->
+                    <button class="filter-by__selection-btn">
+                        Episode Name
+                    </button>
+                </div>
+                <button type="submit" value="Submit"></button>
+            </form>
             <div id="close-filter-btn" class="close-btn">
                 <i class="fas fa-window-close"></i>
             </div>
