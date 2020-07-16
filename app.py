@@ -29,18 +29,15 @@ def enemy_index():
 
 @app.route('/enemy-list', methods=['POST'])
 def search_enemyIndex():
-    query = request.form['attack']
+    query = request.form['search']
     enemy_code = mongo.db.enemyIndexMDB.find({'enemy_code': True})
     enemy_name = mongo.db.enemyIndexMDB.find({'name': True})
 
-    stat = mongo.db.enemyIndexMDB.find({'attack': 'b'})
+    stat = mongo.db.enemyIndexMDB.find_one({'attack': 'b'})
 
-    result = jsonify(query)
+    stat2 = mongo.db.enemyIndexMDB.find_many({'level': 'normal'})
 
-    '''
-    if query == enemy_code or query == enemy_name:
-    '''
-    if result == stat:
+    if query == stat['attack'] or query == stat2['level']:
         return render_template('queryEnemy.html')
     else:
         return render_template('searchError.html')
