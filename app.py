@@ -35,7 +35,7 @@ def search_enemyIndex():
 
     stat = mongo.db.enemyIndexMDB.find_one({'attack': 'b'})
 
-    stat2 = mongo.db.enemyIndexMDB.find_many({'level': 'normal'})
+    stat2 = mongo.db.enemyIndexMDB.find({'level': 'normal'})
 
     if query == stat['attack'] or query == stat2['level']:
         return render_template('queryEnemy.html')
