@@ -50,7 +50,7 @@
             into turning it into a multiple selection menu widiv a submit button. -->
         <div id="filter-menu" class="filter-by__container hidden">
             <form action="#" method="post">
-                <input type="checkbox" name="show-all" class="filter-by__selection-btn">
+                <input type="checkbox" name="show-all" value="show-all" class="filter-by__selection-btn">
                     Show all
                 </input>
                 <div class="filter-by__inner-container">
@@ -143,7 +143,7 @@
                     {{enemy.name|title}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.attack_type|capitalize}}
+                    {{enemy.attack_type|title}}
                 </div>
                 <div class="table__cell">
                     {{enemy.level|upper}}
