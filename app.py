@@ -29,9 +29,9 @@ def enemy_index():
 
 @app.route('/enemy-list', methods=['POST'])
 def search_enemyIndex():
-    queryAll = request.form['show-all']
-    queryAttack = request.form['attack-type']
-    queryLevel = request.form['level-type']
+    queryAll = request.form.get['show-all']
+    queryAttack = request.form.get['attack-type']
+    queryLevel = request.form.get['level-type']
 
     enemyAttackMelee = mongo.db.enemyIndexMDB.find({'attack_type': 'melee'})
     enemyAttackRanged = mongo.db.enemyIndexMDB.find({'attack_type': 'ranged'})
