@@ -34,6 +34,94 @@
         </ul>
     </nav>
     <section class="enemy__container">
-        <h2 class="section__heading">Looks like it works!</h2>
+        <h2 class="section__heading">Enemy List</h2>
+        <div class="table">
+            <div class="table__heading"></div>
+            <div class="table__heading">
+                Enemy Code
+            </div>
+            <div class="table__heading">
+                Name
+            </div>
+            <div class="table__heading">
+                Type
+            </div>
+            <div class="table__heading">
+                Level
+            </div>
+            <div class="table__heading">
+                Endurance
+            </div>
+            <div class="table__heading">
+                Strength
+            </div>
+            <div class="table__heading">
+                Defense
+            </div>
+            <div class="table__heading">
+                Resist
+            </div>
+            <div class="table__heading"></div>
+            {% for queried_enemy in queryEnemy %}
+                <div class="more-info__inner-container">
+                    <div class="table__cell">
+                        <img src="{{queried_enemy.portrait}}" alt="Portrait of enemy.">
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.enemy_code}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.name}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.attack_type}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.level}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.endurance}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.attack}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.defense}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.resist}}
+                    </div>
+                    <div class="more-info__text">
+                        <p>{{queried_enemy.description}}</p>
+                    </div>
+                    <div class="more-info__text">
+                        <p>{{queried_enemy.ability}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="more-info__episode-showcase">
+            <label for="episode-select">
+                Enemy can be found on these stages:
+            </label>
+            <select name="episode-select" id="episode-select">
+                <option value="" disabled>Episode select</option>
+                <!-- Jinja for loop containing dive episodes in which enemy
+                shows up. Might be impossible/too complicated and instead
+                each episode will be hard-coded as an option regardless if
+                dive enemy shows up or not. -->
+                <option value="#">#</option>
+            </select>
+            <!-- Jinja for loop containing stage info -->
+            <div class="more-info__stage-info">
+                <a href="#">
+                    <p>Stage name</p>
+                    <p>Episode name</p>
+                </a>
+            </div>
+        </div>
+        <div class="close-btn">
+            <i class="fas fa-window-close"></i>
+        </div>
     </section>
 {% endblock %}
