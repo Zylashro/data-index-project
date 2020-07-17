@@ -29,9 +29,8 @@ def enemy_index():
 
 @app.route('/enemy-list', methods=['POST'])
 def search_enemyIndex():
-    queryAll = request.form.getlist['show-all']
-    queryAttack = request.form.getlist['attack-type']
-    queryLevel = request.form.getlist['level-type']
+    queryAttack = request.form['attack-type']
+    queryLevel = request.form['level-type']
 
     enemyAttackMelee = mongo.db.enemyIndexMDB.find({'attack_type': 'melee'})
     enemyAttackRanged = mongo.db.enemyIndexMDB.find({'attack_type': 'ranged'})
@@ -44,9 +43,7 @@ def search_enemyIndex():
     enemyLevelElite = mongo.db.enemyIndexMDB.find({'level': 'elite'})
     enemyLevelBoss = mongo.db.enemyIndexMDB.find({'level': 'boss'})
 
-    if queryAll:
-        return redirect(url_for('enemy_index'))
-    elif queryAttack == enemyAttackMelee['attack_type']:
+    if queryAttack == enemyAttackMelee['attack_type']:
         return render_template('queryEnemy.html', queryEnemy=enemyAttackMelee)
     elif queryAttack == enemyAttackRanged['attack_type']:
         return render_template('queryEnemy.html', queryEnemy=enemyAttackRanged)
