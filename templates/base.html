@@ -31,6 +31,10 @@
         </footer>
 
         <script type="text/javascript" src="{{url_for('static', filename='src/hideAndShow.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='src/checkOnlyOne.js')}}"></script>
+        <script>
+            $('input[type="checkbox"]').on('change', function() {
+                $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+            });
+        </script>
     </body>
 </html>
