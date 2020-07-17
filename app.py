@@ -33,8 +33,6 @@ def search_enemyIndex():
     queryAttack = request.form['attack-type']
     queryLevel = request.form['level-type']
 
-    enemyIndexMDB = mongo.db.enemyIndexMDB.find()
-
     enemyAttackMelee = mongo.db.enemyIndexMDB.find({'attack_type': 'melee'})
     enemyAttackRanged = mongo.db.enemyIndexMDB.find({'attack_type': 'ranged'})
     enemyAttackArts = mongo.db.enemyIndexMDB.find({'attack_type': 'arts'})
@@ -47,10 +45,30 @@ def search_enemyIndex():
     enemyLevelBoss = mongo.db.enemyIndexMDB.find({'level': 'boss'})
 
     if queryAll:
-        return redirect('enemy_index')
-    elif 
+        return redirect(url_for('enemy_index'))
+    elif queryAttack == enemyAttackMelee['attack_type']:
+        return render_template('queryEnemy.html', queryEnemy=enemyAttackMelee)
+    elif queryAttack == enemyAttackRanged['attack_type']:
+        return render_template('queryEnemy.html', queryEnemy=enemyAttackRanged)
+    elif queryAttack == enemyAttackArts['attack_type']:
+        return render_template('queryEnemy.html', queryEnemy=enemyAttackArts)
+    elif queryAttack == enemyAttackMeleeAndRanged['attack_type']:
+        return render_template('queryEnemy.html', queryEnemy=enemyAttackMeleeAndRanged)
+    elif queryAttack == enemyAttackMeleeAndArts['attack_type']:
+        return render_template('queryEnemy.html', queryEnemy=enemyAttackMeleeAndArts)
+    elif queryAttack == enemyAttackRangedAndArts['attack_type']:
+        return render_template('queryEnemy.html', queryEnemy=enemyAttackRangedAndArts)
+    elif queryLevel == enemyLevelNormal['level']:
+        return render_template('queryEnemy.html', queryEnemy=enemyLevelNormal)
+    elif queryLevel == enemyLevelElite['level']:
+        return render_template('queryEnemy.html', queryEnemy=enemyLevelElite)
+    elif queryLevel == enemyLevelBoss['level']:
+        return render_template('queryEnemy.html', queryEnemy=enemyLevelBoss)
+    else:
+        return render_template('searchError.html')
     '''
     query = request.form['search']
+    stat = mongo.db.enemyIndexMDB.find({'level': true})
     
     if query == stat['level']:
         return render_template('queryEnemy.html')
