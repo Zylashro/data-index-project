@@ -37,8 +37,8 @@
         <h2 class="section__heading">Enemy List</h2>
         <div class="search-bar">
             <form name="search__enemy-index" action="#" method="post">
-                <input type="text" name="search" placeholder="Search...">
-                <button type="submit"><i class="fa fa-search" class="search-btn"></i></button>
+                {{ searchForm.search }}
+                {{ searchForm.submit(class="fa fa-search search-btn") }}
             </form>
         </div>
         <button id="open-filter-btn" class="filter-by__btn">

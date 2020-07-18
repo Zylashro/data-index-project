@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, jsonify
+from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from forms import SearchForm
 
 if os.path.exists('env.py'):
     import env
@@ -24,19 +25,19 @@ def home_page():
 @app.route('/enemy-list')
 def enemy_index():
     enemyIndexMDB = mongo.db.enemyIndexMDB.find()
-    return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
+    search = SearchForm()
+    return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB, searchForm=search)
 
 
-@app.route('/enemy-list', methods=['POST'])
+@app.route('/enemy-list', methods=['GET', 'POST'])
 def search_enemyIndex():
-    query = request.form['search']
+    search = SearchForm()
     stat = mongo.db.enemyIndexMDB.find({'level'})
     
-    if query == stat['level']:
+    if search == stat['level']:
         return render_template('queryEnemy.html')
     else:
         return render_template('searchError.html')
-    
 
 
 @app.route('/enemy-list/<enemy_code>')
