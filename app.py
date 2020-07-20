@@ -1,15 +1,14 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from forms import SearchForm
 
 if os.path.exists('env.py'):
     import env
 
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = os.environ.get('Mongo_DBNAME')
+app.config["MONGO_DBNAME"] = os.environ.get('MONGO_DBNAME')
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 
@@ -25,17 +24,22 @@ def home_page():
 @app.route('/enemy-list')
 def enemy_index():
     enemyIndexMDB = mongo.db.enemyIndexMDB.find()
-    search = SearchForm()
-    return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB, searchForm=search)
+    return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 
 
 @app.route('/enemy-list', methods=['GET', 'POST'])
 def search_enemyIndex():
-    search = SearchForm()
-    stat = mongo.db.enemyIndexMDB.find({'level'})
+    search = request.form.get('search')
+    search = search.lower()
+    name = mongo.db.enemyIndexMDB.find({'name': { "$regex": search, "$options": "i" }})
+
+    db_name = name[0]
     
-    if search == stat['level']:
-        return render_template('queryEnemy.html')
+    if search == db_name['name']:
+        return render_template('queryEnemy.html', queryEnemy=name)
+    elif search == '':
+        flash('A keyword is required!')
+        return redirect(url_for('enemy_index'))
     else:
         return render_template('searchError.html')
 
@@ -53,6 +57,4 @@ def stage_index():
 
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+    app.run()
