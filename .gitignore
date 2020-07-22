@@ -1,2 +1,7 @@
 env.py
+.env
+.flaskenv
 __pycache__/
+.vscode/settings.json
+devenv.py
+config.py

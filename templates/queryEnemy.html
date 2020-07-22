@@ -35,6 +35,69 @@
     </nav>
     <section class="enemy__container">
         <h2 class="section__heading">Enemy List</h2>
+        <div class="search-bar">
+            <form name="search__enemy-index" action="#" method="post">
+                <input type="text" name="search" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search" class="search-btn"></i></button>
+            </form>
+        </div>
+        <button id="open-filter-btn" class="filter-by__btn">
+            <i class="fas fa-filter"></i>
+        </button>
+        <div id="filter-menu" class="filter-by__container hidden">
+            <button class="filter-by__selection-btn selected">
+                Show all
+            </button>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by attack type:
+                </h2>
+                <button class="filter-by__selection-btn">
+                    Melee
+                </button>
+                <button class="filter-by__selection-btn">
+                    Ranged
+                </button>
+                <button class="filter-by__selection-btn">
+                    Arts
+                </button>
+                <button class="filter-by__selection-btn">
+                    Melee / Ranged
+                </button>
+                <button class="filter-by__selection-btn">
+                    Melee / Arts
+                </button>
+                <button class="filter-by__selection-btn">
+                    Ranged / Arts
+                </button>
+            </div>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by enemy level:
+                </h2>
+                <button class="filter-by__selection-btn">
+                    Normal
+                </button>
+                <button class="filter-by__selection-btn">
+                    Elite
+                </button>
+                <button class="filter-by__selection-btn">
+                    Boss
+                </button>
+            </div>
+            <div class="filter-by__inner-container">
+                <h2 class="filter-by__heading">
+                    Filter by episode:
+                </h2>
+                <!-- Will add all episodes at a later date. -->
+                <button class="filter-by__selection-btn">
+                    Episode Name
+                </button>
+            </div>
+            <div id="close-filter-btn" class="close-btn">
+                <i class="fas fa-window-close"></i>
+            </div>
+        </div>
         <div class="table">
             <div class="table__heading"></div>
             <div class="table__heading">
@@ -68,6 +131,7 @@
                         <img src="{{queried_enemy.portrait}}" alt="Portrait of enemy.">
                     </div>
                     <div class="table__cell">
+<<<<<<< HEAD
                         {{queried_enemy.enemy_code}}
                     </div>
                     <div class="table__cell">
@@ -96,10 +160,40 @@
                     </div>
                     <div class="more-info__text">
                         <p>{{queried_enemy.ability}}</p>
+=======
+                        {{queried_enemy.enemy_code|upper}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.name|title}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.attack_type|capitalize}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.level|upper}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.endurance|upper}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.attack|upper}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.defense|upper}}
+                    </div>
+                    <div class="table__cell">
+                        {{queried_enemy.resist|upper}}
+                    </div>
+                    <div class="table__cell">
+                        <a href="{{url_for('more_info_enemy', enemy_code=queried_enemy._id)}}" class="more-info__btn">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+>>>>>>> searchBar
                     </div>
                 </div>
             {% endfor %}
         </div>
+<<<<<<< HEAD
         <div class="more-info__episode-showcase">
             <label for="episode-select">
                 Enemy can be found on these stages:
@@ -123,5 +217,7 @@
         <div class="close-btn">
             <i class="fas fa-window-close"></i>
         </div>
+=======
+>>>>>>> searchBar
     </section>
 {% endblock %}

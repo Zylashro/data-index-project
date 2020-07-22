@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, jsonify
+from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -8,7 +8,7 @@ if os.path.exists('env.py'):
 
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = os.environ.get('Mongo_DBNAME')
+app.config["MONGO_DBNAME"] = os.environ.get('MONGO_DBNAME')
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 
@@ -27,54 +27,21 @@ def enemy_index():
     return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 
 
-@app.route('/enemy-list', methods=['POST'])
+@app.route('/enemy-list', methods=['GET', 'POST'])
 def search_enemyIndex():
-    queryAll = request.form['show-all']
-    queryAttack = request.form['attack-type']
-    queryLevel = request.form['level-type']
+    search = request.form.get('search')
+    search = search.lower()
+    name = mongo.db.enemyIndexMDB.find({'name': { "$regex": search, "$options": "i" }})
 
-    enemyAttackMelee = mongo.db.enemyIndexMDB.find({'attack_type': 'melee'})
-    enemyAttackRanged = mongo.db.enemyIndexMDB.find({'attack_type': 'ranged'})
-    enemyAttackArts = mongo.db.enemyIndexMDB.find({'attack_type': 'arts'})
-    enemyAttackMeleeAndRanged = mongo.db.enemyIndexMDB.find({'attack_type': 'melee / ranged'})
-    enemyAttackMeleeAndArts = mongo.db.enemyIndexMDB.find({'attack_type': 'melee / arts'})
-    enemyAttackRangedAndArts = mongo.db.enemyIndexMDB.find({'attack_type': 'ranged / arts'})
-
-    enemyLevelNormal = mongo.db.enemyIndexMDB.find({'level': 'normal'})
-    enemyLevelElite = mongo.db.enemyIndexMDB.find({'level': 'elite'})
-    enemyLevelBoss = mongo.db.enemyIndexMDB.find({'level': 'boss'})
-
-    if queryAll:
-        return redirect(url_for('enemy_index'))
-    elif queryAttack == enemyAttackMelee['attack_type']:
-        return render_template('queryEnemy.html', queryEnemy=enemyAttackMelee)
-    elif queryAttack == enemyAttackRanged['attack_type']:
-        return render_template('queryEnemy.html', queryEnemy=enemyAttackRanged)
-    elif queryAttack == enemyAttackArts['attack_type']:
-        return render_template('queryEnemy.html', queryEnemy=enemyAttackArts)
-    elif queryAttack == enemyAttackMeleeAndRanged['attack_type']:
-        return render_template('queryEnemy.html', queryEnemy=enemyAttackMeleeAndRanged)
-    elif queryAttack == enemyAttackMeleeAndArts['attack_type']:
-        return render_template('queryEnemy.html', queryEnemy=enemyAttackMeleeAndArts)
-    elif queryAttack == enemyAttackRangedAndArts['attack_type']:
-        return render_template('queryEnemy.html', queryEnemy=enemyAttackRangedAndArts)
-    elif queryLevel == enemyLevelNormal['level']:
-        return render_template('queryEnemy.html', queryEnemy=enemyLevelNormal)
-    elif queryLevel == enemyLevelElite['level']:
-        return render_template('queryEnemy.html', queryEnemy=enemyLevelElite)
-    elif queryLevel == enemyLevelBoss['level']:
-        return render_template('queryEnemy.html', queryEnemy=enemyLevelBoss)
-    else:
-        return render_template('searchError.html')
-    '''
-    query = request.form['search']
-    stat = mongo.db.enemyIndexMDB.find({'level': true})
+    db_name = name[0]
     
-    if query == stat['level']:
-        return render_template('queryEnemy.html')
+    if search == db_name['name']:
+        return render_template('queryEnemy.html', queryEnemy=name)
+    elif search == '':
+        flash('A keyword is required!')
+        return redirect(url_for('enemy_index'))
     else:
         return render_template('searchError.html')
-    '''
 
 
 @app.route('/enemy-list/<enemy_code>')
