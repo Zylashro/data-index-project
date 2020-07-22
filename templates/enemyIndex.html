@@ -44,10 +44,17 @@
         <button id="open-filter-btn" class="filter-by__btn">
             <i class="fas fa-filter"></i>
         </button>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <!-- Will have a JS function when clicked will remove dive hidden css style and
             will display a little filter menu. -->
-        <!-- At dive moment, filter selection will be done divrough buttons. Will look
-            into turning it into a multiple selection menu widiv a submit button. -->
+        <!-- At dive moment, filter selection will be done through buttons. Will look
+            into turning it into a multiple selection menu with a submit button. -->
         <div id="filter-menu" class="filter-by__container hidden">
             <form action="#" method="post">
                 <input type="checkbox" name="show-all" class="filter-by__selection-btn">
