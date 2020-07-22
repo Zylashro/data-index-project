@@ -8,6 +8,39 @@
         <title>Title of Project</title>
     </head>
     <body>
+        <nav class="navbar__container">
+            <div class="navbar__site-icon-container">
+                <a href="{{url_for('home_page')}}">
+                    <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
+                </a>
+            </div>
+            <ul class="navbar__list">
+                <li class="navbar__item {{selected_home}}">
+                    <a href="{{url_for('home_page')}}" class="navbar__link">
+                        Home
+                    </a>
+                    <i class="fas fa-home navbar__icon"></i>
+                </li>
+                <li class="navbar__item {{selected_enemy}}">
+                    <a href="{{url_for('enemy_index')}}" class="navbar__link">
+                        Enemy Index
+                    </a>
+                    <i class="fas fa-address-book navbar__icon"></i>
+                </li>
+                <li class="navbar__item {{selected_stage}}">
+                    <a href="{{url_for('stage_index')}}" class="navbar__link">
+                        Stage Index
+                    </a>
+                    <i class="fas fa-box navbar__icon"></i>
+                </li>
+                <li class="navbar__item {{selected_stat}}">
+                    <a href="#" class="navbar__link">
+                        Statistics
+                    </a>
+                    <i class="fas fa-chart-pie navbar__icon"></i>
+                </li>
+            </ul>
+        </nav>
         {% block content %}
         {% endblock %}
         <footer class="footer__container">

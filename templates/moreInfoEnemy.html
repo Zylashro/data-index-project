@@ -1,41 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-    <nav class="navbar__container">
-        <div class="navbar__site-icon-container">
-            <a href="{{url_for('home_page')}}">
-                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-            </a>
-        </div>
-        <ul class="navbar__list">
-            <li class="navbar__item">
-                <a href="{{url_for('home_page')}}" class="navbar__link">
-                    Home
-                </a>
-                <i class="fas fa-home navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('enemy_index')}}" class="navbar__link">
-                    Enemy Index
-                </a>
-                <i class="fas fa-address-book navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('stage_index')}}" class="navbar__link">
-                    Stage Index
-                </a>
-                <i class="fas fa-box navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="#" class="navbar__link">
-                    Statistics
-                </a>
-                <i class="fas fa-chart-pie navbar__icon"></i>
-            </li>
-        </ul>
-    </nav>
     <section class="more-info__container">
         <h2 class="section__heading">Enemy List</h2>
-        <div class="table">
+        <div class="more-info__table">
             <div class="table__heading"></div>
             <div class="table__heading">
                 Enemy Code
@@ -61,41 +28,42 @@
             <div class="table__heading">
                 Resist
             </div>
-            <div class="table__heading"></div>
             {% for specific_enemy in enemy %}
+                <div class="table__cell">
+                    <img src="{{specific_enemy.portrait}}" class="table__portrait" alt="Portrait of enemy.">
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.enemy_code|upper}}
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.name|title}}
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.attack_type|title}}
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.level|upper}}
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.endurance|upper}}
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.attack|upper}}
+                </div>
+                <div class="table__cell">
+                    {{specific_enemy.defense|upper}}
+                </div>
+                <div class="table__cell table__last-cell">
+                    {{specific_enemy.resist|upper}}
+                </div>
                 <div class="more-info__inner-container">
-                    <div class="table__cell">
-                        <img src="{{specific_enemy.portrait}}" alt="Portrait of enemy.">
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.enemy_code}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.name}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.attack_type}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.level}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.endurance}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.attack}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.defense}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.resist}}
-                    </div>
-                    <div class="more-info__text">
-                        <p>{{specific_enemy.description}}</p>
-                    </div>
-                    <div class="more-info__text">
-                        <p>{{specific_enemy.ability}}</p>
+                    <div class="inner-inner">
+                        <div class="more-info__text">
+                            <p>{{specific_enemy.description}}</p>
+                        </div>
+                        <div class="more-info__text">
+                            <p>{{specific_enemy.ability}}</p>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

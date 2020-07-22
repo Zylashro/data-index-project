@@ -1,8 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
-from wtforms.fields.html5 import SearchField
+from wtforms import widgets, SelectMultipleField
 from wtforms.validators import DataRequired
 
-class SearchForm(FlaskForm):
-    search = SearchField('Search', validators=[DataRequired('A keyword is required!')])
-    submit = SubmitField('Find Query')
+class MultiCheckboxfield(SelectMultipleField):
+    widget = widgets.ListWidget()
+    option_widget = widgets.CheckboxInput()
+
+class Form(FlaskForm):
+    
