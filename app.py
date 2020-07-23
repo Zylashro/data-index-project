@@ -18,30 +18,95 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/home')
 def home_page():
-    return render_template('home.html')
+    return render_template('home.html', selected_home="selected")
 
 
 @app.route('/enemy-list')
 def enemy_index():
-    enemyIndexMDB = mongo.db.enemyIndexMDB.find()
-    return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
 
+    query = []
+    query_item = {}
+    has_filter = False
+    search = ''
+    attack = ''
+    level = ''
 
-@app.route('/enemy-list', methods=['GET', 'POST'])
-def search_enemyIndex():
-    search = request.form.get('search')
-    search = search.lower()
-    name = mongo.db.enemyIndexMDB.find({'name': { "$regex": search, "$options": "i" }})
+    if 'search' in request.args:
+        search = request.args.get('search').lower()
+        query_item["name"] = { "$regex": search, "$options": "i" }
+        query.append(query_item)
+        has_filter = True
 
-    db_name = name[0]
-    
-    if search == db_name['name']:
-        return render_template('queryEnemy.html', queryEnemy=name)
-    elif search == '':
-        flash('A keyword is required!')
-        return redirect(url_for('enemy_index'))
+    if 'attack-type' in request.args:
+        attack = request.args.get('attack-type')
+        query_item["attack_type"] = attack
+        query.append(query_item)
+        has_filter = True
+
+    if 'level-type' in request.args:
+        level = request.args.get('level-type')
+        query_item["level"] = level
+        query.append(query_item)
+        has_filter = True
+
+    if has_filter == True:
+        if len(query) > 0:
+            result = mongo.db.enemyIndexMDB.find({"$and": query})
+            return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=result, search=search, attack=attack, level=level)
+        else:
+            flash('No search results or no filters selected.')
+            return redirect(url_for('enemy_index'))
     else:
-        return render_template('searchError.html')
+        enemyIndexMDB = mongo.db.enemyIndexMDB.find()
+        return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=enemyIndexMDB)
+
+# @app.route('/enemy-list')
+# def enemy_index():
+#     if 'search' in request.args:
+#         search = request.args.get('search')
+
+#         if search == '':
+#             flash('A keyword is required!')
+#             return redirect(url_for('enemy_index'))
+
+
+#         search = search.lower()
+#         result = mongo.db.enemyIndexMDB.find({'name': { "$regex": search, "$options": "i" }})
+
+#         if result.count() > 0:
+#             return render_template('enemyIndex.html', enemyIndexMDB=result)
+#         else:
+#             flash('No results found.')
+#             return redirect(url_for('enemy_index'))
+
+#     else:
+#         enemyIndexMDB = mongo.db.enemyIndexMDB.find()
+#         return render_template('enemyIndex.html', enemyIndexMDB=enemyIndexMDB)
+
+
+# @app.route('/enemy-list', methods=['GET', 'POST'])
+# def filter_enemyIndex():
+
+#     query = []
+#     query_item = {}
+#     queryValue = {}
+
+#     if 'attack-type' in request.form:
+#         items = request.form.get('attack-type')
+#         query_item["attack_type"] = items
+#         query.append(query_item)
+
+#     if 'level-type' in request.form:
+#         queryLevel = request.form.get('level-type')
+#         query_item["level"] = queryLevel
+#         query.append(query_item)
+
+#     if len(query) > 0:
+#         result = mongo.db.enemyIndexMDB.find({"$and": query})
+#         return render_template('enemyIndex.html', enemyIndexMDB=result)
+#     else:
+#         flash('No filters selected.')
+#         return redirect(url_for('enemy_index'))
 
 
 @app.route('/enemy-list/<enemy_code>')
@@ -53,7 +118,7 @@ def more_info_enemy(enemy_code):
 @app.route('/stage-list')
 def stage_index():
     stageIndexMDB = mongo.db.stageIndexMDB.find()
-    return render_template('stageIndex.html', stageIndexMDB=stageIndexMDB)
+    return render_template('stageIndex.html', selected_stage="selected", stageIndexMDB=stageIndexMDB)
 
 
 if __name__ == '__main__':

@@ -1,99 +1,64 @@
 {% extends 'base.html' %}
 {% block content %}
-    <nav class="navbar__container">
-        <div class="navbar__site-icon-container">
-            <a href="{{url_for('home_page')}}">
-                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-            </a>
-        </div>
-        <ul class="navbar__list">
-            <li class="navbar__item">
-                <a href="{{url_for('home_page')}}" class="navbar__link">
-                    Home
-                </a>
-                <i class="fas fa-home navbar__icon"></i>
-            </li>
-            <li class="navbar__item selected">
-                <a href="{{url_for('enemy_index')}}" class="navbar__link">
-                    Enemy Index
-                </a>
-                <i class="fas fa-address-book navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('stage_index')}}" class="navbar__link">
-                    Stage Index
-                </a>
-                <i class="fas fa-box navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="#" class="navbar__link">
-                    Statistics
-                </a>
-                <i class="fas fa-chart-pie navbar__icon"></i>
-            </li>
-        </ul>
-    </nav>
-    <section class="enemy__container">
+    <section class="enemy__header">
         <h2 class="section__heading">Enemy List</h2>
-        <div class="search-bar">
-            <form name="search__enemy-index" action="#" method="post">
-                <input type="text" name="search" placeholder="Search...">
-                <button type="submit"><i class="fa fa-search" class="search-btn"></i></button>
-            </form>
-        </div>
-        <button id="open-filter-btn" class="filter-by__btn">
-            <i class="fas fa-filter"></i>
-        </button>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <p>{{message}}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <!-- Will have a JS function when clicked will remove dive hidden css style and
-            will display a little filter menu. -->
-        <!-- At dive moment, filter selection will be done through buttons. Will look
-            into turning it into a multiple selection menu with a submit button. -->
-        <div id="filter-menu" class="filter-by__container hidden">
-            <form action="#" method="post">
-                <input type="checkbox" name="show-all" class="filter-by__selection-btn">
-                    Show all
-                </input>
+        <form id="enemy-form" name="enemy-form" method="get">
+            <div class="search-bar">
+                <input type="text" name="search" placeholder="Search..." value="{{search}}" id="search-name">
+                <button type="submit" id="search-name-submit" class="search-btn"><i class="fa fa-search"></i></button>
+            </div>
+            <button type="button" id="open-filter-btn" class="filter-by__btn">
+                <i class="fas fa-filter"></i>
+            </button>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <!-- Will have a JS function when clicked will remove dive hidden css style and
+                will display a little filter menu. -->
+            <!-- At dive moment, filter selection will be done through buttons. Will look
+                into turning it into a multiple selection menu with a submit button. -->
+            <div id="filter-menu" class="filter-by__container hidden">
                 <div class="filter-by__inner-container">
                     <h2 class="filter-by__heading">
                         Filter by attack type:
                     </h2>
-                    <input type="checkbox" name="attack-type" value="melee" class="filter-by__selection-btn">
+                    <input type="radio" name="attack-type" value="melee" class="filter-by__selection-btn" {% if attack == "melee" %}checked{% endif %}>
                         Melee
                     </input>
-                    <input type="checkbox" name="attack-type" value="ranged" class="filter-by__selection-btn">
+                    <input type="radio" name="attack-type" value="ranged" class="filter-by__selection-btn" {% if attack == "ranged" %}checked{% endif %}>
                         Ranged
                     </input>
-                    <input type="checkbox" name="attack-type" value="arts" class="filter-by__selection-btn">
+                    <input type="radio" name="attack-type" value="arts" class="filter-by__selection-btn" {% if attack == "arts" %}checked{% endif %}>
                         Arts
                     </input>
-                    <input type="checkbox" name="attack-type" value="melee / ranged" class="filter-by__selection-btn">
+                    <input type="radio" name="attack-type" value="melee / ranged" class="filter-by__selection-btn" {% if attack == "melee / ranged" %}checked{% endif %}>
                         Melee / Ranged
                     </input>
-                    <input type="checkbox" name="attack-type" value="melee / arts" class="filter-by__selection-btn">
+                    <input type="radio" name="attack-type" value="melee / arts" class="filter-by__selection-btn" {% if attack == "melee / arts" %}checked{% endif %}>
                         Melee / Arts
                     </input>
-                    <input type="checkbox" name="attack-type" value="ranged / arts" class="filter-by__selection-btn">
+                    <input type="radio" name="attack-type" value="ranged / arts" class="filter-by__selection-btn" {% if attack == "ranged / arts" %}checked{% endif %}>
                         Ranged / Arts
+                    </input>
+                    <input type="radio" name="attack-type" value="none" class="filter-by__selection-btn" {% if attack == "none" %}checked{% endif %}>
+                        None
                     </input>
                 </div>
                 <div class="filter-by__inner-container">
                     <h2 class="filter-by__heading">
                         Filter by enemy level:
                     </h2>
-                    <input type="checkbox" name="level-type" value="normal" class="filter-by__selection-btn">
+                    <input type="radio" name="level-type" value="normal" class="filter-by__selection-btn" {% if level == "normal" %}checked{% endif %}>
                         Normal
                     </input>
-                    <input type="checkbox" name="level-type" value="elite" class="filter-by__selection-btn">
+                    <input type="radio" name="level-type" value="elite" class="filter-by__selection-btn" {% if level == "elite" %}checked{% endif %}>
                         Elite
                     </input>
-                    <input type="checkbox" name="level-type" value="boss" class="filter-by__selection-btn">
+                    <input type="radio" name="level-type" value="boss" class="filter-by__selection-btn" {% if level == "boss" %}checked{% endif %}>
                         Boss
                     </input>
                 </div>
@@ -106,12 +71,15 @@
                         Episode Name
                     </button>
                 </div>
-                <button type="submit" value="Submit"></button>
-            </form>
-            <div id="close-filter-btn" class="close-btn">
-                <i class="fas fa-window-close"></i>
+                <button type="button" class="filter-by__clear" id="clear-filter">Clear</button>
+                <button type="submit">Submit</button>
+                <div id="close-filter-btn" class="close-btn">
+                    <i class="fas fa-window-close"></i>
+                </div>
             </div>
-        </div>
+        </form>
+    </section>
+    <section class="enemy__container">
         <div class="table">
             <div class="table__heading"></div>
             <div class="table__heading">
@@ -141,7 +109,7 @@
             <div class="table__heading"></div>
             {% for enemy in enemyIndexMDB %}
                 <div class="table__cell">
-                    <img src="{{enemy.portrait}}" alt="Portrait of enemy.">
+                    <img src="{{enemy.portrait}}" class="table__portrait" alt="Portrait of enemy.">
                 </div>
                 <div class="table__cell">
                     {{enemy.enemy_code|upper}}
@@ -150,7 +118,7 @@
                     {{enemy.name|title}}
                 </div>
                 <div class="table__cell">
-                    {{enemy.attack_type|capitalize}}
+                    {{enemy.attack_type|title}}
                 </div>
                 <div class="table__cell">
                     {{enemy.level|upper}}
@@ -167,9 +135,9 @@
                 <div class="table__cell">
                     {{enemy.resist|upper}}
                 </div>
-                <div class="table__cell">
-                    <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}" class="more-info__btn">
-                        <i class="fas fa-info-circle"></i>
+                <div class="table__cell table__last-cell">
+                    <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}">
+                        <i class="fas fa-info-circle more-info__btn"></i>
                     </a>
                 </div>
             {% endfor %}

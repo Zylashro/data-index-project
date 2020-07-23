@@ -135,7 +135,9 @@ body {
 
 .enemy__container,
 .stage__container,
-.search-error__container {
+.more-info__container,
+.search-error__container,
+.enemy__header {
     margin-left: 260px;
     padding-top: 30px;
 }
@@ -167,13 +169,24 @@ body {
 .search-bar,
 .search-btn {
     padding: 6px 10px;
-    margin-left: 16px;
+    margin-left: 0px;
     border: none;
+    font-size: 17px;
+}
+
+#search-name {
+    padding: 6px 10px;
+    margin-left: 0px;
     font-size: 17px;
 }
 
 .search-btn {
     background: #ddd;
+    vertical-align: middle;
+    font-size: 21px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .search-btn:hover {
@@ -258,6 +271,7 @@ body {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(10, auto);
+    padding-right: 8px;
 }
 
 .table__heading {
@@ -266,31 +280,68 @@ body {
     font-weight: 700;
     border-color: #1565c0;
     border-bottom: 2px solid;
+    display: grid;
+    align-items: center;
+    justify-content: center;
 }
 
 .table__cell {
     height: 100%;
     width: 100%;
     padding: 12px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #383838;
+    border-left: none;
+    word-wrap: normal;
+}
+
+.table__portrait {
+    height: 100px;
+    width: 100px;
+}
+
+.table__last-cell {
+    border-right: none;
 }
 
 /* More Info */
 
-.more-info__container {
-    position: absolute;
-	top: 50px;
-	left: calc((100vw - 300px) / 2);
-	box-sizing: border-box;
-	width: 300px;
-	padding: 15px;
-	background: #ffffff;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	color: #000000;
+.more-info__btn {
+    color: #444444;
+    font-size: 25px;
+}
+
+.more-info__btn:hover {
+    color: rgba(0, 0, 0, .33);
+}
+
+.more-info__table {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(9, auto);
+    padding-right: 8px;
+}
+
+.more-info__inner-container {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 24px 24px 24px 0;
+    gap: 24px;
+}
+
+.inner-inner {
+    border: .01px solid #444444;
+    border-radius: 4px;
+    grid-column: 100%;
+    width: 100%;
+    box-shadow: -8px 9px 5px -6px rgba(0,0,0,0.75);
+    padding: 15px;
 }
 
 .more-info__text {
-
+    padding-top: 8px;
 }
 
 .more-info__episode-showcase,
@@ -298,6 +349,7 @@ body {
     
 }
 
+/*
 .more-info__stage-info,
 .more-info__enemy-info {
     height: 50px;
@@ -305,6 +357,7 @@ body {
     background: #ddd;
     cursor: pointer;
 }
+*/
 
 /* Pagination */
 
