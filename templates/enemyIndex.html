@@ -142,16 +142,18 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="pagination">
-            <a href="#" class="page-btn" id="prev-btn">
+        <div class="pagination__container">
+            <div class="pagination__links">
+                {{ pagination.links }}
+            </div>
+            <!-- <a href="#" class="page-btn" id="prev-btn">
                 <i class="fas fa-backward"></i>
             </a>
             <span id="page">
-                <!-- Figure out how to update page number with Jinja -->
             </span>
             <a href="#" class="page-btn" id="next-btn">
                 <i class="fas fa-forward"></i>
-            </a>
+            </a> -->
         </div>
         <div id="backToTop">
             <i class="fas fa-chevron-circle-up"></i>

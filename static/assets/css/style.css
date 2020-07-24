@@ -361,18 +361,16 @@ body {
 
 /* Pagination */
 
-.pagination {
-    align-items: center;
+.pagination__container {
+    display: flex;
+    flex-direction: row;
 }
 
-.page-btn {
-    width: 30px;
-    height: 30px;
+.pagination__links {
+    display: flex;
+    flex-direction: row;
 }
 
-.page-btn:hover {
-    opacity: .12;
-}
 
 /* Footer */
 

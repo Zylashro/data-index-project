@@ -1,38 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-    <nav class="navbar__container">
-        <div class="navbar__site-icon-container">
-            <a href="{{url_for('home_page')}}">
-                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-            </a>
-        </div>
-        <ul class="navbar__list">
-            <li class="navbar__item">
-                <a href="{{url_for('home_page')}}" class="navbar__link">
-                    Home
-                </a>
-                <i class="fas fa-home navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('enemy_index')}}" class="navbar__link">
-                    Enemy Index
-                </a>
-                <i class="fas fa-address-book navbar__icon"></i>
-            </li>
-            <li class="navbar__item selected">
-                <a href="{{url_for('stage_index')}}" class="navbar__link">
-                    Stage Index
-                </a>
-                <i class="fas fa-box navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="#" class="navbar__link">
-                    Statistics
-                </a>
-                <i class="fas fa-chart-pie navbar__icon"></i>
-            </li>
-        </ul>
-    </nav>
     <section class="stage__container">
         <h2 class="section__heading">Stage List</h2>
         <div class="search-bar">
@@ -109,15 +76,13 @@
                         <h2 class="section__heading">
                             Enemies on stage:
                         </h2>
-                        {% for stage_info in stageIndexMDB %}
                         <div class="more-info__enemy-info">
                             <a href="#">
                                 <img src="#" alt="Portrait of enemy">
-                                <p>{{stage_info.enemy_list.id.name}}</p>
+                                <p>{{stage.enemy_list.name|title}}</p>
                                 <p>x</p>
                             </a>
                         </div>
-                        {% endfor %}
                     </div>
                     <div class="close-btn">
                         <i class="fas fa-window-close"></i>
