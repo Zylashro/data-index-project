@@ -2,7 +2,7 @@
 {% block content %}
     <section class="enemy__header">
         <h2 class="section__heading">Enemy List</h2>
-        <form id="enemy-form" name="enemy-form" method="get">
+        <form method="get">
             <div class="search-bar">
                 <input type="text" name="search" placeholder="Search..." value="{{search}}" id="search-name">
                 <button type="submit" id="search-name-submit" class="search-btn"><i class="fa fa-search"></i></button>
@@ -80,7 +80,7 @@
         </form>
     </section>
     <section class="enemy__container">
-        <div class="table">
+        <div class="table__enemy">
             <div class="table__heading"></div>
             <div class="table__heading">
                 Enemy Code

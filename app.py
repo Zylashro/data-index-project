@@ -128,7 +128,7 @@ def more_info_enemy(enemy_code):
 @app.route('/stage-list')
 def stage_index():
     result = mongo.db.stageIndexMDB.find()
-    return render_template('stageIndex.html', selected_stage="selected", stageIndexMDB=result)
+    return render_template('stageIndex.html', selected_stage="selected", stages=result)
 
 
 if __name__ == '__main__':

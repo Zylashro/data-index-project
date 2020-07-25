@@ -137,7 +137,8 @@ body {
 .stage__container,
 .more-info__container,
 .search-error__container,
-.enemy__header {
+.enemy__header,
+.stage__header {
     margin-left: 260px;
     padding-top: 30px;
 }
@@ -267,11 +268,20 @@ body {
 
 /* Table */
 
-.table {
+.table__enemy {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(10, auto);
     padding-right: 8px;
+    margin-bottom: 16px;
+}
+
+.table__stage {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    padding-right: 8px;
+    margin-bottom: 16px;
 }
 
 .table__heading {
@@ -317,7 +327,7 @@ body {
     color: rgba(0, 0, 0, .33);
 }
 
-.more-info__table {
+.more-info__table-enemy {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(9, auto);
