@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, flash
+from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -31,6 +32,11 @@ def enemy_index():
     attack = ''
     level = ''
 
+    def get_records(offset=0, per_page=10):
+        return result[offset: offset + per_page]
+
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+
     if 'search' in request.args:
         search = request.args.get('search').lower()
         query_item["name"] = { "$regex": search, "$options": "i" }
@@ -52,13 +58,17 @@ def enemy_index():
     if has_filter == True:
         if len(query) > 0:
             result = mongo.db.enemyIndexMDB.find({"$and": query})
-            return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=result, search=search, attack=attack, level=level)
+            paginate_results = get_records(offset=offset, per_page=per_page)
+            pagination = Pagination(page=page, per_page=per_page, total=result.count())
+            return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, page=page, per_page=per_page, attack=attack, level=level)
         else:
             flash('No search results or no filters selected.')
             return redirect(url_for('enemy_index'))
     else:
-        enemyIndexMDB = mongo.db.enemyIndexMDB.find()
-        return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=enemyIndexMDB)
+        result = mongo.db.enemyIndexMDB.find()
+        paginate_results = get_records(offset=offset, per_page=per_page)
+        pagination = Pagination(page=page, per_page=per_page, total=result.count())
+        return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, page=page, per_page=per_page)
 
 # @app.route('/enemy-list')
 # def enemy_index():
@@ -117,8 +127,8 @@ def more_info_enemy(enemy_code):
 
 @app.route('/stage-list')
 def stage_index():
-    stageIndexMDB = mongo.db.stageIndexMDB.find()
-    return render_template('stageIndex.html', selected_stage="selected", stageIndexMDB=stageIndexMDB)
+    result = mongo.db.stageIndexMDB.find()
+    return render_template('stageIndex.html', selected_stage="selected", stages=result)
 
 
 if __name__ == '__main__':

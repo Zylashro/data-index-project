@@ -1,66 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-    <nav class="navbar__container">
-        <div class="navbar__site-icon-container">
-            <a href="{{url_for('home_page')}}">
-                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-            </a>
-        </div>
-        <ul class="navbar__list">
-            <li class="navbar__item">
-                <a href="{{url_for('home_page')}}" class="navbar__link">
-                    Home
-                </a>
-                <i class="fas fa-home navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('enemy_index')}}" class="navbar__link">
-                    Enemy Index
-                </a>
-                <i class="fas fa-address-book navbar__icon"></i>
-            </li>
-            <li class="navbar__item selected">
-                <a href="{{url_for('stage_index')}}" class="navbar__link">
-                    Stage Index
-                </a>
-                <i class="fas fa-box navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="#" class="navbar__link">
-                    Statistics
-                </a>
-                <i class="fas fa-chart-pie navbar__icon"></i>
-            </li>
-        </ul>
-    </nav>
-    <section class="stage__container">
+    <section class="stage__header">
         <h2 class="section__heading">Stage List</h2>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-        <button id="open-filter-btn" class="filter-by__btn">
-            <i class="fas fa-filter"></i>
-        </button>
-        <!-- Will have a JS function when clicked will remove the hidden css style and
-            will display a little filter menu. -->
-        <!-- At the moment, filter selection will be done through buttons. Will look
-            into turning it into a multiple selection menu with a submit button. -->
-        <div id="filter-menu" class="filter-by__container hidden">
-            <button class="filter-by__selection-btn selected">
-                Show all
-            </button>
-            <div class="filter-by__inner-container">
-                <h2 class="filter-by__heading">
-                    Filter by episode:
-                </h2>
-                <button class="filter-by__selection-btn">
-                    Episode Name
-                </button>
-            <div id="close-filter-btn" class="close-btn">
-                <i class="fas fa-window-close"></i>
+        <form method="get">
+            <div class="search-bar">
+                <input type="text" name="search" placeholder="Search..." value="{{search}}" id="search-name">
+                <button type="submit" id="search-name-submit" class="search-btn"><i class="fa fa-search"></i></button>
             </div>
-        </div>
-        <div class="table">
+            <button type="button" id="open-filter-btn" class="filter-by__btn">
+                <i class="fas fa-filter"></i>
+            </button>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <!-- Will have a JS function when clicked will remove dive hidden css style and
+                will display a little filter menu. -->
+            <!-- At dive moment, filter selection will be done through buttons. Will look
+                into turning it into a multiple selection menu with a submit button. -->
+            <div id="filter-menu" class="filter-by__container hidden">
+                <div class="filter-by__inner-container">
+                    <h2 class="filter-by__heading">
+                        Filter by attack type:
+                    </h2>
+                    <input type="radio" name="attack-type" value="melee" class="filter-by__selection-btn" {% if attack == "melee" %}checked{% endif %}>
+                        Melee
+                    </input>
+                    <input type="radio" name="attack-type" value="ranged" class="filter-by__selection-btn" {% if attack == "ranged" %}checked{% endif %}>
+                        Ranged
+                    </input>
+                    <input type="radio" name="attack-type" value="arts" class="filter-by__selection-btn" {% if attack == "arts" %}checked{% endif %}>
+                        Arts
+                    </input>
+                    <input type="radio" name="attack-type" value="melee / ranged" class="filter-by__selection-btn" {% if attack == "melee / ranged" %}checked{% endif %}>
+                        Melee / Ranged
+                    </input>
+                    <input type="radio" name="attack-type" value="melee / arts" class="filter-by__selection-btn" {% if attack == "melee / arts" %}checked{% endif %}>
+                        Melee / Arts
+                    </input>
+                    <input type="radio" name="attack-type" value="ranged / arts" class="filter-by__selection-btn" {% if attack == "ranged / arts" %}checked{% endif %}>
+                        Ranged / Arts
+                    </input>
+                    <input type="radio" name="attack-type" value="none" class="filter-by__selection-btn" {% if attack == "none" %}checked{% endif %}>
+                        None
+                    </input>
+                </div>
+                <div class="filter-by__inner-container">
+                    <h2 class="filter-by__heading">
+                        Filter by enemy level:
+                    </h2>
+                    <input type="radio" name="level-type" value="normal" class="filter-by__selection-btn" {% if level == "normal" %}checked{% endif %}>
+                        Normal
+                    </input>
+                    <input type="radio" name="level-type" value="elite" class="filter-by__selection-btn" {% if level == "elite" %}checked{% endif %}>
+                        Elite
+                    </input>
+                    <input type="radio" name="level-type" value="boss" class="filter-by__selection-btn" {% if level == "boss" %}checked{% endif %}>
+                        Boss
+                    </input>
+                </div>
+                <div class="filter-by__inner-container">
+                    <h2 class="filter-by__heading">
+                        Filter by episode:
+                    </h2>
+                    <!-- Will add all episodes at a later date. -->
+                    <button class="filter-by__selection-btn">
+                        Episode Name
+                    </button>
+                </div>
+                <button type="button" class="filter-by__clear" id="clear-filter">Clear</button>
+                <button type="submit">Submit</button>
+                <div id="close-filter-btn" class="close-btn">
+                    <i class="fas fa-window-close"></i>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section class="stage__container">
+        <div class="table__stage">
             <div class="table__heading">
                 Stage Code
             </div>
@@ -71,70 +91,40 @@
                 Episode Name
             </div>
             <div class="table__heading">
-                Total enemies in stage
+                Total Enemies
             </div>
             <div class="table__heading"></div>
-            {% for stage in stageIndexMDB %}
-                    <div class="table__cell">
-                        {{stage.stage_code|upper}}
-                    </div>
-                    <div class="table__cell">
-                        {{stage.name|title}}
-                    </div>
-                    <div class="table__cell">
-                        {{stage.episode_name|title}}
-                    </div>
-                    <div class="table__cell">
-                        {{stage.total_enemies}}
-                    </div>
-                    <div class="table__cell">
-                        <button>
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </div>
-                <div class="more-info__container hidden">
-                        <div class="table__cell">
-                            {{stage.stage_code}}
-                        </div>
-                        <div class="table__cell">
-                            {{stage.name}}
-                        </div>
-                        <div class="table__cell">
-                            {{stage.episode_name}}
-                        </div>
-                        <div class="table__cell">
-                            {{stage.total_enemies}}
-                        </div>
-                    <div class="more-info__enemy-showcase">
-                        <h2 class="section__heading">
-                            Enemies on stage:
-                        </h2>
-                        {% for stage_info in stageIndexMDB %}
-                        <div class="more-info__enemy-info">
-                            <a href="#">
-                                <img src="#" alt="Portrait of enemy">
-                                <p>{{stage_info.enemy_list.id.name}}</p>
-                                <p>x</p>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="close-btn">
-                        <i class="fas fa-window-close"></i>
-                    </div>
+            {% for stage in stages %}
+                <div class="table__cell">
+                    {{stage.stage_code|upper}}
+                </div>
+                <div class="table__cell">
+                    {{stage.name|title}}
+                </div>
+                <div class="table__cell">
+                    {{stage.episode_name|title}}
+                </div>
+                <div class="table__cell">
+                    {{stage.total_enemies}}
+                </div>
+                <div class="table__cell table__last-cell">
+                    <a href="#">
+                        <i class="fas fa-info-circle more-info__btn"></i>
+                    </a>
                 </div>
             {% endfor %}
         </div>
-        <div class="pagination">
-            <a href="#" class="page-btn" id="prev-btn">
+        <div class="pagination__container">
+            <div class="pagination__links">
+            </div>
+            <!-- <a href="#" class="page-btn" id="prev-btn">
                 <i class="fas fa-backward"></i>
             </a>
             <span id="page">
-                <!-- Figure out how to update page number with Jinja -->
             </span>
             <a href="#" class="page-btn" id="next-btn">
                 <i class="fas fa-forward"></i>
-            </a>
+            </a> -->
         </div>
         <div id="backToTop">
             <i class="fas fa-chevron-circle-up"></i>
