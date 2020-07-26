@@ -11,6 +11,13 @@ const closeFilter = document.getElementById('close-filter-btn');
 
 const clearFilter = document.getElementById('clear-filter');
 
+const selectSubmit = document.getElementById('episodes');
+
+
+selectSubmit.onchange = (event) => {
+    document.stageForm.submit();
+};
+
 clearFilter.onclick = (event) => {
     window.location.replace('http://127.0.0.1:5000/enemy-list');
 };

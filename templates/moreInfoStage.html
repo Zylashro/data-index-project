@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="more-info__container">
+        <h2 class="section__heading">Stage List</h2>
+        <div class="more-info__table-stage">
+            <div class="table__heading">
+                Stage Code
+            </div>
+            <div class="table__heading">
+                Name
+            </div>
+            <div class="table__heading">
+                Episode Name
+            </div>
+            <div class="table__heading">
+                Total Enemies
+            </div>
+
+                <div class="table__cell">
+                    {{stage.stage_code|upper}}
+                </div>
+                <div class="table__cell">
+                    {{stage.name|title}}
+                </div>
+                <div class="table__cell">
+                    {{stage.episode_name|title}}
+                </div>
+                <div class="table__cell table__last-cell">
+                    {{stage.total_enemies}}
+                </div>
+                
+
+        </div>
+        <h3 for="episode-select">
+            Enemies on this stage:
+        </h3>
+        <div class="more-info__episode-showcase">
+            
+            {% for enemies in enemy %}
+                <div class="more-info__enemy-card">
+                    <div class="inner-inner">
+                        <img src="{{enemies.portrait}}" class="more-info__portrait" alt="Portrait of enemy.">
+                        <p class="more-info__text">
+                            {{enemies.name|title}}
+                        </p>
+                        <div class="more-info__redirect-btn">
+                            <a href="{{url_for('more_info_enemy', enemy_code=enemies._id)}}">
+                                More Info
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

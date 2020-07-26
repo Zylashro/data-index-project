@@ -334,9 +334,22 @@ body {
     padding-right: 8px;
 }
 
+.more-info__table-stage {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    padding-right: 8px;
+}
+
 .more-info__inner-container {
     display: grid;
-    grid-template-columns: auto;
+    
+    gap: 24px;
+}
+
+.more-info__enemy-card {
+    display: grid;
+    grid-template-columns: auto auto;
     padding: 24px 24px 24px 0;
     gap: 24px;
 }
@@ -354,9 +367,9 @@ body {
     padding-top: 8px;
 }
 
-.more-info__episode-showcase,
-.more-info__enemy-showcase {
-    
+.more-info__episode-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 /*

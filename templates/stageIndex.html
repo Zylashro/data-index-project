@@ -2,14 +2,11 @@
 {% block content %}
     <section class="stage__header">
         <h2 class="section__heading">Stage List</h2>
-        <form method="get">
+        <form method="get" name="stageForm">
             <div class="search-bar">
-                <input type="text" name="search" placeholder="Search..." value="{{search}}" id="search-name">
+                <input type="text" name="search" placeholder="Search..." value="{{search}}">
                 <button type="submit" id="search-name-submit" class="search-btn"><i class="fa fa-search"></i></button>
             </div>
-            <button type="button" id="open-filter-btn" class="filter-by__btn">
-                <i class="fas fa-filter"></i>
-            </button>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}
@@ -21,62 +18,30 @@
                 will display a little filter menu. -->
             <!-- At dive moment, filter selection will be done through buttons. Will look
                 into turning it into a multiple selection menu with a submit button. -->
-            <div id="filter-menu" class="filter-by__container hidden">
-                <div class="filter-by__inner-container">
-                    <h2 class="filter-by__heading">
-                        Filter by attack type:
-                    </h2>
-                    <input type="radio" name="attack-type" value="melee" class="filter-by__selection-btn" {% if attack == "melee" %}checked{% endif %}>
-                        Melee
-                    </input>
-                    <input type="radio" name="attack-type" value="ranged" class="filter-by__selection-btn" {% if attack == "ranged" %}checked{% endif %}>
-                        Ranged
-                    </input>
-                    <input type="radio" name="attack-type" value="arts" class="filter-by__selection-btn" {% if attack == "arts" %}checked{% endif %}>
-                        Arts
-                    </input>
-                    <input type="radio" name="attack-type" value="melee / ranged" class="filter-by__selection-btn" {% if attack == "melee / ranged" %}checked{% endif %}>
-                        Melee / Ranged
-                    </input>
-                    <input type="radio" name="attack-type" value="melee / arts" class="filter-by__selection-btn" {% if attack == "melee / arts" %}checked{% endif %}>
-                        Melee / Arts
-                    </input>
-                    <input type="radio" name="attack-type" value="ranged / arts" class="filter-by__selection-btn" {% if attack == "ranged / arts" %}checked{% endif %}>
-                        Ranged / Arts
-                    </input>
-                    <input type="radio" name="attack-type" value="none" class="filter-by__selection-btn" {% if attack == "none" %}checked{% endif %}>
-                        None
-                    </input>
-                </div>
-                <div class="filter-by__inner-container">
-                    <h2 class="filter-by__heading">
-                        Filter by enemy level:
-                    </h2>
-                    <input type="radio" name="level-type" value="normal" class="filter-by__selection-btn" {% if level == "normal" %}checked{% endif %}>
-                        Normal
-                    </input>
-                    <input type="radio" name="level-type" value="elite" class="filter-by__selection-btn" {% if level == "elite" %}checked{% endif %}>
-                        Elite
-                    </input>
-                    <input type="radio" name="level-type" value="boss" class="filter-by__selection-btn" {% if level == "boss" %}checked{% endif %}>
-                        Boss
-                    </input>
-                </div>
-                <div class="filter-by__inner-container">
-                    <h2 class="filter-by__heading">
-                        Filter by episode:
-                    </h2>
-                    <!-- Will add all episodes at a later date. -->
-                    <button class="filter-by__selection-btn">
-                        Episode Name
-                    </button>
-                </div>
-                <button type="button" class="filter-by__clear" id="clear-filter">Clear</button>
-                <button type="submit">Submit</button>
-                <div id="close-filter-btn" class="close-btn">
-                    <i class="fas fa-window-close"></i>
-                </div>
+            
+            <div class="filter-by__inner-container">
+                <label for="episodes" class="filter-by__heading">
+                    Filter by episode:
+                </label>
+                <select name="episodes" id="episodes">
+                    <option selected="selected" disabled>
+                        Select...
+                    </option>
+                    <option value="episode 00: evil time part 1" {% if episode == "episode 00: evil time part 1" %}selected{% endif %}>
+                        Episode 00: Evil Time Part 1
+                    </option>
+                    <option value="episode 01: evil time part 2" {% if episode == "episode 01: evil time part 2" %}selected{% endif %}>
+                        Episode 01: Evil Time Part 2
+                    </option>
+                    <option value="episode 02: separated hearts" {% if episode == "episode 02: separated hearts" %}selected{% endif %}>
+                        Episode 02: Separated Hearts
+                    </option>
+                    <option value="episode 03: stinging shock" {% if episode == "episode 03: stinging shock" %}selected{% endif %}>
+                        Episode 03: Stinging Shock
+                    </option>
+                </select>
             </div>
+            <button type="button" class="filter-by__clear" id="clear-filter">Clear</button>
         </form>
     </section>
     <section class="stage__container">
@@ -108,7 +73,7 @@
                     {{stage.total_enemies}}
                 </div>
                 <div class="table__cell table__last-cell">
-                    <a href="#">
+                    <a href="{{url_for('more_info_stage', stage_code=stage._id)}}">
                         <i class="fas fa-info-circle more-info__btn"></i>
                     </a>
                 </div>
@@ -116,6 +81,7 @@
         </div>
         <div class="pagination__container">
             <div class="pagination__links">
+                {{ pagination.links }}
             </div>
             <!-- <a href="#" class="page-btn" id="prev-btn">
                 <i class="fas fa-backward"></i>

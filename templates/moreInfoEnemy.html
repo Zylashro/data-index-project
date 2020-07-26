@@ -73,7 +73,7 @@
                 Enemy can be found on these stages:
             </label>
             <select name="episode-select" id="episode-select">
-                <option value="" disabled>Episode select</option>
+                <option selected="selected" disabled>Episode select...</option>
                 <!-- Jinja for loop containing dive episodes in which enemy
                 shows up. Might be impossible/too complicated and instead
                 each episode will be hard-coded as an option regardless if
@@ -87,9 +87,6 @@
                     <p>Episode name</p>
                 </a>
             </div>
-        </div>
-        <div class="close-btn">
-            <i class="fas fa-window-close"></i>
         </div>
     </section>
 {% endblock %}
