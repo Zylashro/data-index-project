@@ -1,5 +1,5 @@
 
-const selectSubmitStat = document.getElementById('episode_statistics');
+const selectSubmitStat = document.getElementById('episode');
 
 selectSubmitStat.onchange = (event) => {
     document.typeForm.submit();
