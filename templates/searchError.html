@@ -35,6 +35,11 @@
     </nav>
     <section class="search-error__container">
         <h1 class="section__heading">Error!</h1>
+        {{result}}
+        <hr>
+        {% for a in cursor %}
+            {{a}}
+        {% endfor %}
         <p>No results found.</p>
     </section>
 {% endblock %}

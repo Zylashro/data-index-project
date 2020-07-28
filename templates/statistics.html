@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="statistics__container">
+        <h2 class="section__heading">Statistics</h2>
+        <div>
+            <form method="get" name="typeForm">
+                <label for="episode_statistics">Select Episode:</label>
+                <select name="episode_statistics" id="episode_statistics">
+                    <option {% if episode_statistics == "" %}selected{% endif %}>
+                        Show All
+                    </option>
+                    <option value="episode 00: evil time part 1" {% if episode_statistics == "episode 00: evil time part 1" %}selected{% endif %}>
+                        Episode 00: Evil Time Part 1
+                    </option>
+                    <option value="episode 01: evil time part 2" {% if episode_statistics == "episode 01: evil time part 2" %}selected{% endif %}>
+                        Episode 01: Evil Time Part 2
+                    </option>
+                </select>
+            </form>
+            <h3>Average attack type:</h3>
+            <canvas id="attackType" class="pie-chart"></canvas>
+        </div>
+        <div>
+            <h3>Average level type:</h3>
+            <canvas id="levelType" class="pie-chart"></canvas>
+        </div>
+        
+        <script>
+            var ctx_attack_type = document.getElementById('attackType').getContext('2d');
+            var chart_attack_type = new Chart(ctx_attack_type, {
+                type: 'pie',
+                data: {
+                    labels: {{pie_attack_type_labels|safe}},
+                    datasets: [{
+                        label: 'Average attack type',
+                        backgroundColor: {{pie_colors|safe}},
+                        borderColor: {{pie_colors|safe}},
+                        data: {{pie_attack_type_values|safe}}
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'left'
+                    }
+                }
+            });
+
+            var ctx_level_type = document.getElementById('levelType').getContext('2d');
+            var chart_level_type = new Chart(ctx_level_type, {
+                type: 'pie',
+                data: {
+                    labels: {{pie_level_type_labels|safe}},
+                    datasets: [{
+                        label: 'Average level type',
+                        backgroundColor: {{pie_colors|safe}},
+                        borderColor: {{pie_colors|safe}},
+                        data: {{pie_level_type_values|safe}}
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'left'
+                    }
+                }
+            });
+        </script>
+    </section>
+
+    <script type="text/javascript" src="{{url_for('static', filename='src/statsJS.js')}}"></script>
+{% endblock %}
