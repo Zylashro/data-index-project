@@ -181,17 +181,92 @@ def more_info_stage(stage_code):
     
     return render_template('moreInfoStage.html', stage=the_stage, enemy=enemies)
 
-    # the_stage = mongo.db.testMDB.aggregate([
-    #     { "$match": { "_id": ObjectId(stage_code) } },
-    #     {
-    #     "$lookup": {
-    #         'from': 'enemyIndexMDB',
-    #         'localField': 'some',
-    #         'foreignField': 'some',
-    #         'as': 'enemy_list'
-    #     }
-    # }]).next()
-    # return render_template('moreInfoStage.html', stage=the_stage)
+
+@app.route('/statistics')
+def statistics():
+    query = []
+    query_item = {}
+    has_filter = False
+    episode_statistics = ''
+
+    pie_colors = [
+        '#F7464A', '#46BFBD', '#FDB45C', 
+        '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC'
+    ]
+
+    if 'episode_statistics' in request.args:
+        episode_statistics = request.args.get('episode_statistics')
+        query_item["episode_name"] = episode_statistics 
+        query.append(query_item)
+        episode_result = mongo.db.stageIndexMDB.find({"$and": query})
+
+        enemies = []
+        for stage in episode_result:
+            for enemy in stage['enemy_list']:
+                if enemy not in enemies:
+                    enemies.append(enemy)
+        
+        if len(enemies) > 0:
+            has_filter = True
+        
+    results_attack_type = []
+    results_level_type = []
+
+    if has_filter == True:
+        results_attack = mongo.db.enemyIndexMDB.aggregate([
+            { 
+                "$match": { '_id' : { "$in" : enemies } }
+            },
+            {
+                "$group": {
+                    "_id": "$attack_type",
+                    "count": { "$sum": 1 } 
+                }
+            }
+        ])
+
+        results_level = mongo.db.enemyIndexMDB.aggregate([
+            { 
+                "$match": { '_id' : { "$in" : enemies } }
+            },
+            { 
+                "$group": {
+                    "_id": "$level",
+                    "count": { "$sum": 1 } 
+                }
+            }
+        ])
+        
+    else:
+        results_attack = mongo.db.enemyIndexMDB.aggregate([
+            { "$group": {
+                "_id": "$attack_type",
+                "count": { "$sum": 1 } 
+            }}
+        ])
+
+        results_level = mongo.db.enemyIndexMDB.aggregate([
+            { "$group": {
+                "_id": "$level",
+                "count": { "$sum": 1 } 
+            }}
+        ])
+
+    results_attack_type = []
+    pie_attack_type_labels = []
+    
+    results_level_type = []
+    pie_level_type_labels = []
+
+    for item in results_attack:
+        results_attack_type.append(item["count"])
+        pie_attack_type_labels.append(item["_id"].title())
+
+    for item in results_level:
+        results_level_type.append(item["count"])
+        pie_level_type_labels.append(item["_id"].upper())
+    
+    return render_template('statistics.html', episode_statistics=episode_statistics, selected_statistics="selected", pie_attack_type_values=results_attack_type, pie_attack_type_labels=pie_attack_type_labels, pie_colors=pie_colors, pie_level_type_values=results_level_type, pie_level_type_labels=pie_level_type_labels)
 
 
 if __name__ == '__main__':

@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/7e899f220f.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}" type="text/css">
         <title>Title of Project</title>
     </head>
@@ -33,8 +34,8 @@
                     </a>
                     <i class="fas fa-box navbar__icon"></i>
                 </li>
-                <li class="navbar__item {{selected_stat}}">
-                    <a href="#" class="navbar__link">
+                <li class="navbar__item {{selected_statistics}}">
+                    <a href="{{url_for('statistics')}}" class="navbar__link">
                         Statistics
                     </a>
                     <i class="fas fa-chart-pie navbar__icon"></i>
@@ -63,7 +64,7 @@
             </div>
         </footer>
 
-        <script type="text/javascript" src="{{url_for('static', filename='src/hideAndShow.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='src/checkOnlyOne.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='src/filter.js')}}"></script>
+        
     </body>
 </html>
