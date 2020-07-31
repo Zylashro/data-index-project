@@ -6,7 +6,7 @@
 // const nameMessage = document.querySelector('#search-name-message');
 
 
-const selectSubmit = document.getElementById('episodes');
+const selectSubmit = document.getElementById('episode');
 const clearFilter = document.getElementById('clear-filter-stage');
 
 selectSubmit.onchange = (event) => {

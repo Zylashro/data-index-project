@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="stage__header">
+        {{query}}
         <h2 class="section__heading">Stage List</h2>
         <form method="get" name="stageForm">
             <div class="search-bar">
@@ -20,25 +21,18 @@
                 into turning it into a multiple selection menu with a submit button. -->
             
             <div class="filter-by__inner-container">
-                <label for="episodes" class="filter-by__heading">
+                <label for="episode" class="filter-by__heading">
                     Filter by episode:
                 </label>
-                <select name="episodes" id="episodes">
-                    <option selected="selected" disabled>
+                <select name="episode" id="episode">
+                    <option disabled selected="selected">
                         Select...
                     </option>
-                    <option value="episode 00: evil time part 1" {% if episode == "episode 00: evil time part 1" %}selected{% endif %}>
-                        Episode 00: Evil Time Part 1
-                    </option>
-                    <option value="episode 01: evil time part 2" {% if episode == "episode 01: evil time part 2" %}selected{% endif %}>
-                        Episode 01: Evil Time Part 2
-                    </option>
-                    <option value="episode 02: separated hearts" {% if episode == "episode 02: separated hearts" %}selected{% endif %}>
-                        Episode 02: Separated Hearts
-                    </option>
-                    <option value="episode 03: stinging shock" {% if episode == "episode 03: stinging shock" %}selected{% endif %}>
-                        Episode 03: Stinging Shock
-                    </option>
+                    {% for item in episodes %}
+                        <option value="{{item.id}}" {% if episode == item.id %}selected{% endif %}>
+                            {{item.name|title}}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
             <button type="button" class="filter-by__clear" id="clear-filter-stage">Clear</button>
@@ -67,7 +61,7 @@
                     {{stage.name|title}}
                 </div>
                 <div class="table__cell">
-                    {{stage.episode_name|title}}
+                    {{episode_names[stage.episode]|title}}
                 </div>
                 <div class="table__cell">
                     {{stage.total_enemies}}
