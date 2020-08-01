@@ -4,6 +4,8 @@
     {% set pie_attack_type_labels = pie_data.pie_attack_type_labels %}
     {% set pie_level_type_values = pie_data.pie_level_type_values %}
     {% set pie_level_type_labels = pie_data.pie_level_type_labels %}
+    {% set pie_enemy_number_values = pie_data.pie_enemy_number_values %}
+    {% set pie_enemy_number_labels = pie_data.pie_enemy_number_labels %}
     <section class="statistics__container">
         <h2 class="section__heading">Statistics</h2>
         <div>
@@ -27,9 +29,30 @@
             <h3>Average level type:</h3>
             <canvas id="levelType" class="pie-chart"></canvas>
         </div>
+        <div>
+            <h3>Total enemies:</h3>
+            <canvas id="enemyNumber" class="bar-chart"></canvas>
+        </div>
         
         <script>
-            var pie_colors = [ '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC' ];
+            function calculateColors(number) {
+                colors = [];
+                while (colors.length < number) {
+                    color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                    if (!colors.includes(color)) {
+                        colors.push(color);
+                    }
+                }
+
+                return colors;
+            }
+            // var pie_colors = [ '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC' ];
+            var maxItems = 7;
+            var pie_enemy_number_values = {{pie_enemy_number_values}};
+            if (pie_enemy_number_values && pie_enemy_number_values.length > 7) {
+                maxItems = pie_enemy_number_values.length;
+            }
+            var pie_colors = calculateColors(maxItems);
             var pie_options = {
                 legend: {
                     position: 'left'
@@ -64,6 +87,30 @@
                 },
                 options: pie_options
             });
+
+            if (pie_enemy_number_values && pie_enemy_number_values.length > 0) {
+                var ctx_enemy_number = document.getElementById('enemyNumber').getContext('2d');
+                var chart_enemy_number = new Chart(ctx_enemy_number, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: {{pie_enemy_number_labels|safe}},
+                        datasets: [{
+                            label: 'Total enemies',
+                            backgroundColor: pie_colors,
+                            borderColor: pie_colors,
+                            data: {{pie_enemy_number_values|safe}}
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: false
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                });
+            }
         </script>
     </section>
 

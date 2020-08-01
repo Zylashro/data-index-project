@@ -84,8 +84,51 @@ def enemy_index():
 
 @app.route('/enemy-list/<enemy_code>')
 def more_info_enemy(enemy_code):
-    the_enemy = mongo.db.enemyIndexMDB.find({'_id': ObjectId(enemy_code)})
-    return render_template('moreInfoEnemy.html', enemy=the_enemy)
+    the_enemy = mongo.db.enemyIndexMDB.find_one({'_id': ObjectId(enemy_code)})
+
+    stage_ids = []
+    episode_ids = []
+    occurrence = {}
+    episode_names = {}
+    episode_card = {}
+    connected_stages = mongo.db.stageEnemyRelation.find({'enemy': ObjectId(enemy_code)})
+    for item in connected_stages:
+        stage_ids.append(item['stage'])
+        occurrence[item['stage']] = item['occurrence']
+
+    stages = mongo.db.stageIndexMDB.find({ '_id' : { "$in" : stage_ids } })
+    for stg in stages:
+        if stg['episode'] not in episode_ids:
+            episode_ids.append(stg['episode'])
+    stages.rewind()
+
+    episodes = mongo.db.episodes.find({ '_id' : { "$in" : episode_ids } })
+    for episode in episodes:
+        episode_names[episode['_id']] = episode['name']
+
+    for stg in stages:
+        e_id = stg['episode']
+        stg_list = []
+        if e_id not in episode_card:
+            stg_list.append({
+                '_id': stg['_id'],
+                'name': stg['name'],
+                'occurrence': occurrence[stg['_id']]
+            })
+            episode_card[e_id] = {
+                'name': episode_names[e_id],
+                'stages': stg_list
+            }
+        else:
+            stg_list = episode_card[e_id]['stages']
+            stg_list.append({
+                '_id': stg['_id'],
+                'name': stg['name'],
+                'occurrence': occurrence[stg['_id']]
+            })
+            episode_card[e_id]['stages'] = stg_list
+
+    return render_template('moreInfoEnemy.html', enemy=the_enemy, episodes=episode_card)
 
 
 @app.route('/stage-list')
@@ -134,25 +177,24 @@ def stage_index():
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
         return render_template('stageIndex.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, page=page, per_page=per_page)
 
-    result = mongo.db.stageIndexMDB.find()
-    return render_template('stageIndex.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result)
-
 
 @app.route('/stage-list/<stage_code>')
 def more_info_stage(stage_code):
     the_stage = mongo.db.stageIndexMDB.find_one({'_id': ObjectId(stage_code)})
 
-    eids = []
-    enemy_ids = mongo.db.stageEnemyRelation.find({'stage': ObjectId(stage_code)})
-    for item in enemy_ids:
-        eids.append(item['enemy'])
+    enemy_ids = []
+    occurrence = {}
+    connected_enemies = mongo.db.stageEnemyRelation.find({'stage': ObjectId(stage_code)})
+    for item in connected_enemies:
+        enemy_ids.append(item['enemy'])
+        occurrence[item['enemy']] = item['occurrence']
 
-    enemy = mongo.db.enemyIndexMDB.find({ '_id' : { "$in" : eids } })
+    enemies = mongo.db.enemyIndexMDB.find({ '_id' : { "$in" : enemy_ids } })
 
     episode_list = episode_lists()
     episode_names = episode_list['episode_names']
     
-    return render_template('moreInfoStage.html', episode_names=episode_names, stage=the_stage, enemy=enemy)
+    return render_template('moreInfoStage.html', episode_names=episode_names, stage=the_stage, enemies=enemies, occurrence=occurrence)
 
 
 @app.route('/statistics')
@@ -161,6 +203,7 @@ def statistics():
     query_item = {}
     has_filter = False
     episode = ''
+    enemy_numbers = {}
 
     episode_list = episode_lists()
     episodes = episode_list['episodes']
@@ -177,14 +220,15 @@ def statistics():
             enemies = []
             enemy_ids = mongo.db.stageEnemyRelation.find({'stage': { "$in": stages }})
             for enemy in enemy_ids:
+                enemy_names = mongo.db.enemyIndexMDB.find_one({'_id': ObjectId(enemy['enemy'])})
                 if enemy['enemy'] not in enemies:
                     enemies.append(enemy['enemy'])
+                    enemy_numbers[enemy_names['name']] = enemy['occurrence']
+                else:
+                    enemy_numbers[enemy_names['name']] += enemy['occurrence']
             
             if len(enemies) > 0:
                 has_filter = True
-        
-    results_attack_type = []
-    results_level_type = []
 
     if has_filter == True:
         results_attack = mongo.db.enemyIndexMDB.aggregate([
@@ -232,6 +276,9 @@ def statistics():
     results_level_type = []
     pie_level_type_labels = []
 
+    results_enemy_number = []
+    pie_enemy_number_labels = []
+
     for item in results_attack:
         results_attack_type.append(item["count"])
         pie_attack_type_labels.append(item["_id"].title())
@@ -240,15 +287,20 @@ def statistics():
         results_level_type.append(item["count"])
         pie_level_type_labels.append(item["_id"].upper())
 
+    for key, value in enemy_numbers.items():
+        results_enemy_number.append(value)
+        pie_enemy_number_labels.append(key.title())
+
     pie_data = {
         'pie_attack_type_values': results_attack_type, 
         'pie_attack_type_labels': pie_attack_type_labels, 
         'pie_level_type_values': results_level_type, 
-        'pie_level_type_labels': pie_level_type_labels
+        'pie_level_type_labels': pie_level_type_labels,
+        'pie_enemy_number_values': results_enemy_number, 
+        'pie_enemy_number_labels': pie_enemy_number_labels
     }
     
     return render_template('statistics.html', selected=episode, selected_statistics="selected", pie_data=pie_data, episodes=episodes)
-
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

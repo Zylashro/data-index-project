@@ -28,65 +28,59 @@
             <div class="table__heading">
                 Resist
             </div>
-            {% for specific_enemy in enemy %}
-                <div class="table__cell">
-                    <img src="{{specific_enemy.portrait}}" class="table__portrait" alt="Portrait of enemy.">
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.enemy_code|upper}}
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.name|title}}
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.attack_type|title}}
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.level|upper}}
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.endurance|upper}}
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.attack|upper}}
-                </div>
-                <div class="table__cell">
-                    {{specific_enemy.defense|upper}}
-                </div>
-                <div class="table__cell table__last-cell">
-                    {{specific_enemy.resist|upper}}
-                </div>
-                <div class="more-info__inner-container">
-                    <div class="inner-inner">
-                        <div class="more-info__text">
-                            <p>{{specific_enemy.description}}</p>
-                        </div>
-                        <div class="more-info__text">
-                            <p>{{specific_enemy.ability}}</p>
-                        </div>
+
+            <div class="table__cell">
+                <img src="{{enemy.portrait}}" class="table__portrait" alt="Portrait of enemy.">
+            </div>
+            <div class="table__cell">
+                {{enemy.enemy_code|upper}}
+            </div>
+            <div class="table__cell">
+                {{enemy.name|title}}
+            </div>
+            <div class="table__cell">
+                {{enemy.attack_type|title}}
+            </div>
+            <div class="table__cell">
+                {{enemy.level|upper}}
+            </div>
+            <div class="table__cell">
+                {{enemy.endurance|upper}}
+            </div>
+            <div class="table__cell">
+                {{enemy.attack|upper}}
+            </div>
+            <div class="table__cell">
+                {{enemy.defense|upper}}
+            </div>
+            <div class="table__cell table__last-cell">
+                {{enemy.resist|upper}}
+            </div>
+            <div class="more-info__inner-container">
+                <div class="inner-inner">
+                    <div class="more-info__text">
+                        <p>{{enemy.description}}</p>
+                    </div>
+                    <div class="more-info__text">
+                        <p>{{enemy.ability}}</p>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
         </div>
         <div class="more-info__episode-showcase">
-            <label for="episode-select">
+            <h3>
                 Enemy can be found on these stages:
-            </label>
-            <select name="episode-select" id="episode-select">
-                <option selected="selected" disabled>Episode select...</option>
-                <!-- Jinja for loop containing dive episodes in which enemy
-                shows up. Might be impossible/too complicated and instead
-                each episode will be hard-coded as an option regardless if
-                dive enemy shows up or not. -->
-                <option value="#">#</option>
-            </select>
-            <!-- Jinja for loop containing stage info -->
-            <div class="more-info__stage-info">
-                <a href="#">
-                    <p>Stage name</p>
-                    <p>Episode name</p>
-                </a>
-            </div>
+            </h3>
+            {% for key, value in episodes.items() %}
+                <div class="more-info__stage-info">
+                    <h4>{{value.name}}</h4>
+                    {% for stage in value.stages %}
+                        <a href="{{url_for('more_info_stage', stage_code=stage._id)}}">
+                            <p>{{stage.name}} x{{stage.occurrence}}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
     </section>
 {% endblock %}

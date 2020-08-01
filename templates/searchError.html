@@ -34,12 +34,11 @@
         </ul>
     </nav>
     <section class="search-error__container">
-        <h1 class="section__heading">Error!</h1>
-        {{result}}
-        <hr>
-        {% for a in cursor %}
-            {{a}}
+        <h1 class="section__heading">Data!</h1>
+        {% for key, value in data.items() %}
+            <p>{{key}}</p>
+            <p>{{value}}</p>
+            <hr>
         {% endfor %}
-        <p>No results found.</p>
     </section>
 {% endblock %}
