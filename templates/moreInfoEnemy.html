@@ -1,127 +1,85 @@
 {% extends 'base.html' %}
 {% block content %}
-    <nav class="navbar__container">
-        <div class="navbar__site-icon-container">
-            <a href="{{url_for('home_page')}}">
-                <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-            </a>
-        </div>
-        <ul class="navbar__list">
-            <li class="navbar__item">
-                <a href="{{url_for('home_page')}}" class="navbar__link">
-                    Home
-                </a>
-                <i class="fas fa-home navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('enemy_index')}}" class="navbar__link">
-                    Enemy Index
-                </a>
-                <i class="fas fa-address-book navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="{{url_for('stage_index')}}" class="navbar__link">
-                    Stage Index
-                </a>
-                <i class="fas fa-box navbar__icon"></i>
-            </li>
-            <li class="navbar__item">
-                <a href="#" class="navbar__link">
-                    Statistics
-                </a>
-                <i class="fas fa-chart-pie navbar__icon"></i>
-            </li>
-        </ul>
-    </nav>
     <section class="more-info__container">
-        <h2 class="section__heading">Enemy List</h2>
-        <div class="table">
-            <div class="table__heading"></div>
-            <div class="table__heading">
-                Enemy Code
+        <h1 class="section__heading">Enemy Info - {{enemy.name|title}}</h1>
+        
+        <div class="more-info__enemy-container">
+            <div class="more-info__enemy-image">
+                <img src="{{enemy.portrait}}" alt="Portrait of enemy.">
             </div>
-            <div class="table__heading">
-                Name
+            <div class="more-info__enemy">
+                <div class="more-info__heading">
+                    Enemy Code:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.enemy_code|upper}}
+                </div>
+                <div class="more-info__heading">
+                    Name:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.name|title}}
+                </div>
+                <div class="more-info__heading">
+                    Type:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.attack_type|title}}
+                </div>
+                <div class="more-info__heading">
+                    Level:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.level|upper}}
+                </div>
             </div>
-            <div class="table__heading">
-                Type
+            <div class="more-info__enemy">
+                <div class="more-info__heading">
+                    Endurance:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.endurance|upper}}
+                </div>
+                <div class="more-info__heading">
+                    Strength:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.attack|upper}}
+                </div>
+                <div class="more-info__heading">
+                    Defense:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.defense|upper}}
+                </div>
+                <div class="more-info__heading">
+                    Resist:
+                </div>
+                <div class="more-info__data">
+                    {{enemy.resist|upper}}
+                </div>
             </div>
-            <div class="table__heading">
-                Level
+        </div>
+        <div class="more-info__inner-container">
+            <div class="more-info__description">
+                <p>{{enemy.description}}</p>
             </div>
-            <div class="table__heading">
-                Endurance
+            <div class="more-info__description">
+                <p>{{enemy.ability}}</p>
             </div>
-            <div class="table__heading">
-                Strength
-            </div>
-            <div class="table__heading">
-                Defense
-            </div>
-            <div class="table__heading">
-                Resist
-            </div>
-            <div class="table__heading"></div>
-            {% for specific_enemy in enemy %}
-                <div class="more-info__inner-container">
-                    <div class="table__cell">
-                        <img src="{{specific_enemy.portrait}}" alt="Portrait of enemy.">
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.enemy_code}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.name}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.attack_type}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.level}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.endurance}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.attack}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.defense}}
-                    </div>
-                    <div class="table__cell">
-                        {{specific_enemy.resist}}
-                    </div>
-                    <div class="more-info__text">
-                        <p>{{specific_enemy.description}}</p>
-                    </div>
-                    <div class="more-info__text">
-                        <p>{{specific_enemy.ability}}</p>
-                    </div>
+        </div>
+        <h2>Enemy can be found on these stages:</h2>
+        <div class="more-info__enemy-showcase">
+            {% for key, value in episodes.items() %}
+                <div class="more-info__episode-card">
+                    <h3>{{value.name|title}}</h3>
+                    {% for stage in value.stages %}
+                        <a href="{{url_for('more_info_stage', stage_code=stage._id)}}" class="more-info__stage-link">
+                            {{stage.name|title}} x{{stage.occurrence}}
+                        </a>
+                    {% endfor %}
                 </div>
             {% endfor %}
-        </div>
-        <div class="more-info__episode-showcase">
-            <label for="episode-select">
-                Enemy can be found on these stages:
-            </label>
-            <select name="episode-select" id="episode-select">
-                <option value="" disabled>Episode select</option>
-                <!-- Jinja for loop containing dive episodes in which enemy
-                shows up. Might be impossible/too complicated and instead
-                each episode will be hard-coded as an option regardless if
-                dive enemy shows up or not. -->
-                <option value="#">#</option>
-            </select>
-            <!-- Jinja for loop containing stage info -->
-            <div class="more-info__stage-info">
-                <a href="#">
-                    <p>Stage name</p>
-                    <p>Episode name</p>
-                </a>
-            </div>
-        </div>
-        <div class="close-btn">
-            <i class="fas fa-window-close"></i>
         </div>
     </section>
 {% endblock %}

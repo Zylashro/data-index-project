@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="more-info__container">
+        <h1 class="section__heading">Stage Info - {{stage.name|title}}</h1>
+
+        <div class="more-info__stage">
+            <div class="more-info__heading">
+                Stage Code:
+            </div>
+            <div class="more-info__data">
+                {{stage.stage_code|upper}}
+            </div>
+            <div class="more-info__heading">
+                Name:
+            </div>
+            <div class="more-info__data">
+                {{stage.name|title}}
+            </div>
+            <div class="more-info__heading">
+                Episode Name:
+            </div>
+            <div class="more-info__data">
+                {{episode_names[stage.episode]|title}}
+            </div>
+            <div class="more-info__heading">
+                Total Enemies:
+            </div>
+            <div class="more-info__data table__last-cell">
+                {{stage.total_enemies}}
+            </div>
+        </div>
+        <h2>Enemies on this stage:</h2>
+        <div class="more-info__episode-showcase">
+            
+            {% for enemy in enemies %}
+                <div class="more-info__enemy-card">
+                    <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}">
+                        <img src="{{enemy.portrait}}" class="more-info__portrait" alt="Portrait of enemy.">
+                    </a>
+                    <p class="more-info__text">
+                        {{enemy.name|title}} x{{occurrence[enemy._id]}}
+                    </p>
+                    <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}" class="more-info__redirect-btn">
+                        More Info
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
