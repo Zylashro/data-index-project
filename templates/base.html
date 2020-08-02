@@ -9,41 +9,49 @@
         <title>Title of Project</title>
     </head>
     <body>
+        <div id="overlay" class="page-overlay hidden"></div>
         <nav class="navbar__container">
             <div class="navbar__site-icon-container">
                 <a href="{{url_for('home_page')}}">
                     <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
                 </a>
             </div>
-            <ul class="navbar__list">
-                <li class="navbar__item {{selected_home}}">
-                    <a href="{{url_for('home_page')}}" class="navbar__link">
-                        Home
-                    </a>
+            <div class="navbar__list">
+                <a href="{{url_for('home_page')}}" class="navbar__item {{selected_home}}">
+                    <span class="navbar__link">Home</span>
                     <i class="fas fa-home navbar__icon"></i>
-                </li>
-                <li class="navbar__item {{selected_enemy}}">
-                    <a href="{{url_for('enemy_index')}}" class="navbar__link">
-                        Enemy Index
-                    </a>
+                </a>
+                <a href="{{url_for('enemy_index')}}" class="navbar__item {{selected_enemy}}">
+                    <span class="navbar__link">Enemy Index</span>
                     <i class="fas fa-address-book navbar__icon"></i>
-                </li>
-                <li class="navbar__item {{selected_stage}}">
-                    <a href="{{url_for('stage_index')}}" class="navbar__link">
-                        Stage Index
-                    </a>
+                </a>
+                <a href="{{url_for('stage_index')}}" class="navbar__item {{selected_stage}}">
+                    <span class="navbar__link">Stage Index</span>
                     <i class="fas fa-box navbar__icon"></i>
-                </li>
-                <li class="navbar__item {{selected_statistics}}">
-                    <a href="{{url_for('statistics')}}" class="navbar__link">
-                        Statistics
-                    </a>
+                </a>
+                <a href="{{url_for('statistics')}}" class="navbar__item {{selected_statistics}}">
+                    <span class="navbar__link">Statistics</span>
                     <i class="fas fa-chart-pie navbar__icon"></i>
-                </li>
-            </ul>
+                </a>
+            </div>
+            <div class="navbar__dropdown-container">
+                <a href="{{url_for('home_page')}}">
+                    <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
+                </a>
+                <!-- <h1 class="navbar__dropdown-title">Title of project</h1> -->
+                <div class="navbar__dropdown-hover" id="open-dropdown"><i class="fas fa-bars"></i></div>
+                <div class="navbar__dropdown-menu hidden" id="dropdown-menu">
+                    <a href="" class="navbar__dropdown-item">Home</a>
+                    <a href="" class="navbar__dropdown-item">Enemy Index</a>
+                    <a href="" class="navbar__dropdown-item">Stage Index</a>
+                    <a href="" class="navbar__dropdown-item">Statistics</a>
+                </div>
+            </div>
         </nav>
-        {% block content %}
-        {% endblock %}
+        <div class="content__container">
+            {% block content %}
+            {% endblock %}
+        </div>
         <footer class="footer__container">
             <div class="footer__social">
                 <h4 class="footer__heading">
@@ -64,7 +72,6 @@
             </div>
         </footer>
 
-        <script type="text/javascript" src="{{url_for('static', filename='src/filter.js')}}"></script>
-        
+        <script type="text/javascript" src="{{url_for('static', filename='src/dropdown.js')}}"></script>
     </body>
 </html>

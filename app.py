@@ -41,6 +41,10 @@ def enemy_index():
     search = ''
     attack = ''
     level = ''
+    radio = {
+        'attackType': ['melee', 'ranged', 'melee / ranged', 'melee / arts', 'ranged / arts', 'none'],
+        'levelType': ['normal', 'elite', 'boss']
+    }
 
     def get_records(offset=0, per_page=10):
         return result[offset: offset + per_page]
@@ -50,11 +54,12 @@ def enemy_index():
     if 'search' in request.args:
         query = []
         search = request.args.get('search').lower()
-        query.append({'name': { "$regex": search, "$options": "i" }})
-        query.append({'enemy_code': { "$regex": search, "$options": "i" }})
-        query_search = {"$or": query}
-        query_result.append(query_search)
-        has_filter = True
+        if len(search) > 0:
+            query.append({'name': { "$regex": search, "$options": "i" }})
+            query.append({'enemy_code': { "$regex": search, "$options": "i" }})
+            query_search = {"$or": query}
+            query_result.append(query_search)
+            has_filter = True
 
     if 'attack-type' in request.args:
         attack = request.args.get('attack-type')
@@ -67,19 +72,19 @@ def enemy_index():
         has_filter = True
 
     if has_filter == True:
-        if len(query) > 0:
-            result = mongo.db.enemyIndexMDB.find({"$and": query_result})
-            paginate_results = get_records(offset=offset, per_page=per_page)
-            pagination = Pagination(page=page, per_page=per_page, total=result.count())
-            return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, page=page, per_page=per_page, attack=attack, level=level)
-        else:
-            flash('No search results or no filters selected.')
-            return redirect(url_for('enemy_index'))
+        result = mongo.db.enemyIndexMDB.find({"$and": query_result})
+        if result.count() < 1:
+            flash('No search results found.')
+        
+        paginate_results = get_records(offset=offset, per_page=per_page)
+        pagination = Pagination(page=page, per_page=per_page, total=result.count())
+        return render_template('enemy.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, attack=attack, level=level, search=search, radio=radio)
+
     else:
         result = mongo.db.enemyIndexMDB.find()
         paginate_results = get_records(offset=offset, per_page=per_page)
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
-        return render_template('enemyIndex.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, page=page, per_page=per_page)
+        return render_template('enemy.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, radio=radio)
 
 
 @app.route('/enemy-list/<enemy_code>')
@@ -139,7 +144,7 @@ def stage_index():
     search = ''
     episode = ''
 
-    def get_records(offset=0, per_page=10):
+    def get_records(result, offset=0, per_page=10):
         return result[offset: offset + per_page]
 
     page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
@@ -151,31 +156,33 @@ def stage_index():
     if 'search' in request.args:
         query = []
         search = request.args.get('search').lower()
-        query.append({'name': { "$regex": search, "$options": "i" }})
-        query.append({'stage_code': { "$regex": search, "$options": "i" }})
-        query_search = {"$or": query}
-        query_result.append(query_search)
-        has_filter = True
+        if len(search) > 0:
+            query.append({'name': { "$regex": search, "$options": "i" }})
+            query.append({'stage_code': { "$regex": search, "$options": "i" }})
+            query_search = {"$or": query}
+            query_result.append(query_search)
+            has_filter = True
     
     if 'episode' in request.args:
         episode = request.args.get('episode')
-        query_result.append({'episode': ObjectId(episode)})
-        has_filter = True
+        if len(episode) > 0:
+            query_result.append({'episode': ObjectId(episode)})
+            has_filter = True
 
     if has_filter == True:
-        if len(query) > 0:
-            result = mongo.db.stageIndexMDB.find({"$and": query_result})
-            paginate_results = get_records(offset=offset, per_page=per_page)
-            pagination = Pagination(page=page, per_page=per_page, total=result.count())
-            return render_template('stageIndex.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, page=page, per_page=per_page, episode=episode)
-        else:
-            flash('No search results or no filters selected.')
-            return redirect(url_for('stage_index'))
+        result = mongo.db.stageIndexMDB.find({"$and": query_result})
+        if result.count() < 1:
+            flash('No search results found.')
+
+        paginate_results = get_records(result=result, offset=offset, per_page=per_page)
+        pagination = Pagination(page=page, per_page=per_page, total=result.count())
+        return render_template('stage.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, episode=episode, search=search)
+
     else:
         result = mongo.db.stageIndexMDB.find()
-        paginate_results = get_records(offset=offset, per_page=per_page)
+        paginate_results = get_records(result=result, offset=offset, per_page=per_page)
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
-        return render_template('stageIndex.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, page=page, per_page=per_page)
+        return render_template('stage.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination)
 
 
 @app.route('/stage-list/<stage_code>')
@@ -302,7 +309,8 @@ def statistics():
     
     return render_template('statistics.html', selected=episode, selected_statistics="selected", pie_data=pie_data, episodes=episodes)
 
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
