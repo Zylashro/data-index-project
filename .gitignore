@@ -7,3 +7,4 @@ devenv.py
 config.py
 node_modules/
 app_dev.py
+dataCheck.html

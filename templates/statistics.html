@@ -6,13 +6,15 @@
     {% set pie_level_type_labels = pie_data.pie_level_type_labels %}
     {% set pie_enemy_number_values = pie_data.pie_enemy_number_values %}
     {% set pie_enemy_number_labels = pie_data.pie_enemy_number_labels %}
-    <section class="statistics__container">
-        <h2 class="section__heading">Statistics</h2>
-        <div>
-            <form method="get" name="typeForm">
-                <label for="episode">Select Episode:</label>
-                <select name="episode" id="episode">
-                    <option value="" {% if selected == "" %}selected{% endif %}>
+    <section class="statistics__header">
+        <h1 class="section__heading">Statistics</h1>
+        <form method="get" name="typeForm">
+            <div class="filter-by__inner-container">
+                <label for="episode" class="filter-by__heading">
+                    Select Episode:
+                </label>
+                <select name="episode" id="episode" class="filter-by__select">
+                    <option value="" selected="selected">
                         Show All
                     </option>
                     {% for item in episodes %}
@@ -21,98 +23,97 @@
                         </option>
                     {% endfor %}
                 </select>
-            </form>
-            <h3>Average attack type:</h3>
-            <canvas id="attackType" class="pie-chart"></canvas>
-        </div>
-        <div>
-            <h3>Average level type:</h3>
-            <canvas id="levelType" class="pie-chart"></canvas>
-        </div>
-        <div>
-            <h3>Total enemies:</h3>
-            <canvas id="enemyNumber" class="bar-chart"></canvas>
-        </div>
-        
-        <script>
-            function calculateColors(number) {
-                colors = [];
-                while (colors.length < number) {
-                    color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-                    if (!colors.includes(color)) {
-                        colors.push(color);
-                    }
-                }
-
-                return colors;
-            }
-            // var pie_colors = [ '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC' ];
-            var maxItems = 7;
-            var pie_enemy_number_values = {{pie_enemy_number_values}};
-            if (pie_enemy_number_values && pie_enemy_number_values.length > 7) {
-                maxItems = pie_enemy_number_values.length;
-            }
-            var pie_colors = calculateColors(maxItems);
-            var pie_options = {
-                legend: {
-                    position: 'left'
-                }
-            };
-            var ctx_attack_type = document.getElementById('attackType').getContext('2d');
-            var chart_attack_type = new Chart(ctx_attack_type, {
-                type: 'pie',
-                data: {
-                    labels: {{pie_attack_type_labels|safe}},
-                    datasets: [{
-                        label: 'Average attack type',
-                        backgroundColor: pie_colors,
-                        borderColor: pie_colors,
-                        data: {{pie_attack_type_values|safe}}
-                    }]
-                },
-                options: pie_options
-            });
-
-            var ctx_level_type = document.getElementById('levelType').getContext('2d');
-            var chart_level_type = new Chart(ctx_level_type, {
-                type: 'pie',
-                data: {
-                    labels: {{pie_level_type_labels|safe}},
-                    datasets: [{
-                        label: 'Average level type',
-                        backgroundColor: pie_colors,
-                        borderColor: pie_colors,
-                        data: {{pie_level_type_values|safe}}
-                    }]
-                },
-                options: pie_options
-            });
-
-            if (pie_enemy_number_values && pie_enemy_number_values.length > 0) {
-                var ctx_enemy_number = document.getElementById('enemyNumber').getContext('2d');
-                var chart_enemy_number = new Chart(ctx_enemy_number, {
-                    type: 'horizontalBar',
-                    data: {
-                        labels: {{pie_enemy_number_labels|safe}},
-                        datasets: [{
-                            label: 'Total enemies',
-                            backgroundColor: pie_colors,
-                            borderColor: pie_colors,
-                            data: {{pie_enemy_number_values|safe}}
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: false
-                        },
-                        legend: {
-                            display: false
-                        }
-                    }
-                });
-            }
-        </script>
+            </div>
+        </form>
     </section>
+    <section class="statistics__container">
+        <h2>Average attack type:</h2>
+        <canvas id="attackType" class="pie-chart"></canvas>
+        <h2>Average level type:</h2>
+        <canvas id="levelType" class="pie-chart"></canvas>
+        {% if pie_enemy_number_values %}
+            <h2>Total enemies:</h2>
+            <canvas id="enemyNumber" class="bar-chart"></canvas>
+        {% endif %}
+    </section>
+        
+    <script>
+        function calculateColors(number) {
+            colors = [];
+            while (colors.length < number) {
+                color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                if (!colors.includes(color)) {
+                    colors.push(color);
+                }
+            }
 
-    <script type="text/javascript" src="{{url_for('static', filename='src/statsJS.js')}}"></script>
+            return colors;
+        }
+        // var pie_colors = [ '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC' ];
+        var maxItems = 7;
+        var pie_enemy_number_values = {{pie_enemy_number_values}};
+        if (pie_enemy_number_values && pie_enemy_number_values.length > 7) {
+            maxItems = pie_enemy_number_values.length;
+        }
+        var pie_colors = calculateColors(maxItems);
+        var pie_options = {
+            legend: {
+                position: 'left'
+            }
+        };
+        var ctx_attack_type = document.getElementById('attackType').getContext('2d');
+        var chart_attack_type = new Chart(ctx_attack_type, {
+            type: 'pie',
+            data: {
+                labels: {{pie_attack_type_labels|safe}},
+                datasets: [{
+                    label: 'Average attack type',
+                    backgroundColor: pie_colors,
+                    borderColor: pie_colors,
+                    data: {{pie_attack_type_values|safe}}
+                }]
+            },
+            options: pie_options
+        });
+
+        var ctx_level_type = document.getElementById('levelType').getContext('2d');
+        var chart_level_type = new Chart(ctx_level_type, {
+            type: 'pie',
+            data: {
+                labels: {{pie_level_type_labels|safe}},
+                datasets: [{
+                    label: 'Average level type',
+                    backgroundColor: pie_colors,
+                    borderColor: pie_colors,
+                    data: {{pie_level_type_values|safe}}
+                }]
+            },
+            options: pie_options
+        });
+
+        if (pie_enemy_number_values && pie_enemy_number_values.length > 0) {
+            var ctx_enemy_number = document.getElementById('enemyNumber').getContext('2d');
+            var chart_enemy_number = new Chart(ctx_enemy_number, {
+                type: 'horizontalBar',
+                data: {
+                    labels: {{pie_enemy_number_labels|safe}},
+                    datasets: [{
+                        label: 'Total enemies',
+                        backgroundColor: pie_colors,
+                        borderColor: pie_colors,
+                        data: {{pie_enemy_number_values|safe}}
+                    }]
+                },
+                options: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript" src="{{url_for('static', filename='src/statistics.js')}}"></script>
 {% endblock %}

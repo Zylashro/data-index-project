@@ -1,32 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="stage__header">
-        {{query}}
-        <h2 class="section__heading">Stage List</h2>
+        <h1 class="section__heading">Stage List</h1>
         <form method="get" name="stageForm">
             <div class="search-bar">
-                <input type="text" name="search" placeholder="Search..." value="{{search}}">
-                <button type="submit" id="search-name-submit" class="search-btn"><i class="fa fa-search"></i></button>
+                <input type="text" name="search" placeholder="Search...">
+                <button type="submit" id="search-submit" class="search-btn"><i class="fa fa-search"></i></button>
+                <div id="warning" class="search-warning hidden">You need to write at least 2 chars in search</div>
             </div>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{message}}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <!-- Will have a JS function when clicked will remove dive hidden css style and
-                will display a little filter menu. -->
-            <!-- At dive moment, filter selection will be done through buttons. Will look
-                into turning it into a multiple selection menu with a submit button. -->
-            
             <div class="filter-by__inner-container">
                 <label for="episode" class="filter-by__heading">
                     Filter by episode:
                 </label>
-                <select name="episode" id="episode">
-                    <option disabled selected="selected">
-                        Select...
+                <select name="episode" id="episode" class="filter-by__select">
+                    <option value="" selected="selected">
+                        All episodes
                     </option>
                     {% for item in episodes %}
                         <option value="{{item.id}}" {% if episode == item.id %}selected{% endif %}>
@@ -35,10 +23,21 @@
                     {% endfor %}
                 </select>
             </div>
-            <button type="button" class="filter-by__clear" id="clear-filter-stage">Clear</button>
         </form>
     </section>
     <section class="stage__container">
+        <div class="search-message">
+            {% if search %}
+                <h3>Search results for: "{{search}}"</h3>
+            {% endif %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
         <div class="table__stage">
             <div class="table__heading">
                 Stage Code
@@ -73,23 +72,11 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="pagination__container">
-            <div class="pagination__links">
-                {{ pagination.links }}
-            </div>
-            <!-- <a href="#" class="page-btn" id="prev-btn">
-                <i class="fas fa-backward"></i>
-            </a>
-            <span id="page">
-            </span>
-            <a href="#" class="page-btn" id="next-btn">
-                <i class="fas fa-forward"></i>
-            </a> -->
-        </div>
+        {{ pagination.links }}
         <div id="backToTop">
             <i class="fas fa-chevron-circle-up"></i>
         </div>
     </section>
     
-    <script type="text/javascript" src="{{url_for('static', filename='src/stageJS.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='src/stage.js')}}"></script>
 {% endblock %}
