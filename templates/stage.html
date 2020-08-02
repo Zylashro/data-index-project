@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="stage__header">
+        <h1 class="section__heading">Stage List</h1>
+        <form method="get" name="stageForm">
+            <div class="search-bar">
+                <input type="text" name="search" placeholder="Search...">
+                <button type="submit" id="search-submit" class="search-btn"><i class="fa fa-search"></i></button>
+                <div id="warning" class="search-warning hidden">You need to write at least 2 chars in search</div>
+            </div>
+            <div class="filter-by__inner-container">
+                <label for="episode" class="filter-by__heading">
+                    Filter by episode:
+                </label>
+                <select name="episode" id="episode" class="filter-by__select">
+                    <option value="" selected="selected">
+                        All episodes
+                    </option>
+                    {% for item in episodes %}
+                        <option value="{{item.id}}" {% if episode == item.id %}selected{% endif %}>
+                            {{item.name|title}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </section>
+    <section class="stage__container">
+        <div class="search-message">
+            {% if search %}
+                <h3>Search results for: "{{search}}"</h3>
+            {% endif %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="table__stage">
+            <div class="table__heading">
+                Stage Code
+            </div>
+            <div class="table__heading">
+                Name
+            </div>
+            <div class="table__heading">
+                Episode Name
+            </div>
+            <div class="table__heading">
+                Total Enemies
+            </div>
+            <div class="table__heading"></div>
+            {% for stage in stages %}
+                <div class="table__cell">
+                    {{stage.stage_code|upper}}
+                </div>
+                <div class="table__cell">
+                    {{stage.name|title}}
+                </div>
+                <div class="table__cell">
+                    {{episode_names[stage.episode]|title}}
+                </div>
+                <div class="table__cell">
+                    {{stage.total_enemies}}
+                </div>
+                <div class="table__cell table__last-cell">
+                    <a href="{{url_for('more_info_stage', stage_code=stage._id)}}">
+                        <i class="fas fa-info-circle more-info__btn"></i>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        {{ pagination.links }}
+        <div id="backToTop">
+            <i class="fas fa-chevron-circle-up"></i>
+        </div>
+    </section>
+    
+    <script type="text/javascript" src="{{url_for('static', filename='src/stage.js')}}"></script>
+{% endblock %}
