@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="more-info__container">
-        <h1 class="section__heading">Stage Info - {{stage.name|title}}</h1>
+        <div class="back-button">
+            <i id="back" class="fas fa-arrow-circle-left"></i>
+        </div>
+        <h1 class="section__heading">Stage Info<br>{{stage.name|title}}</h1>
 
         <div class="more-info__stage">
             <div class="more-info__heading">
@@ -35,7 +38,7 @@
             {% for enemy in enemies %}
                 <div class="more-info__enemy-card">
                     <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}">
-                        <img src="{{enemy.portrait}}" class="more-info__portrait" alt="Portrait of enemy.">
+                        <img src="{{enemy.portrait}}" class="episode-showcase__portrait" alt="Portrait of enemy.">
                     </a>
                     <p class="more-info__text">
                         {{enemy.name|title}} x{{occurrence[enemy._id]}}

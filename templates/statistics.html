@@ -27,13 +27,21 @@
         </form>
     </section>
     <section class="statistics__container">
-        <h2>Average attack type:</h2>
-        <canvas id="attackType" class="pie-chart"></canvas>
-        <h2>Average level type:</h2>
-        <canvas id="levelType" class="pie-chart"></canvas>
+        <div class="statistics__attack">
+            <h2>Average attack type:</h2>
+            <canvas id="attackType" class="pie-chart"></canvas>
+        </div>
+        <div class="statistics__level">
+            <h2>Average level type:</h2>
+            <canvas id="levelType" class="pie-chart"></canvas>
+        </div>
         {% if pie_enemy_number_values %}
-            <h2>Total enemies:</h2>
-            <canvas id="enemyNumber" class="bar-chart"></canvas>
+            <div class="statistics__total">
+                <h2>Total enemies:</h2>
+                <div id="totalEnemy">
+                    <canvas id="enemyNumber" class="bar-chart"></canvas>
+                </div>
+            </div>
         {% endif %}
     </section>
         
@@ -51,14 +59,21 @@
         }
         // var pie_colors = [ '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC' ];
         var maxItems = 7;
+        var containerHeight = "";
         var pie_enemy_number_values = {{pie_enemy_number_values}};
+        console.log(pie_enemy_number_values);
+        var totalContainer = document.getElementById("totalEnemy");
         if (pie_enemy_number_values && pie_enemy_number_values.length > 7) {
             maxItems = pie_enemy_number_values.length;
+            containerHeight = (maxItems * 18) + 40;
+            console.log(totalContainer);
+            totalContainer.style.height = containerHeight+"px";
         }
         var pie_colors = calculateColors(maxItems);
         var pie_options = {
             legend: {
-                position: 'left'
+                display: true,
+                position: 'bottom'
             }
         };
         var ctx_attack_type = document.getElementById('attackType').getContext('2d');
@@ -110,7 +125,8 @@
                     },
                     legend: {
                         display: false
-                    }
+                    },
+                    maintainAspectRatio: false
                 }
             });
         }
