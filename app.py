@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, flash
+from flask import Flask, render_template, redirect, request, url_for, flash, session
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -11,6 +11,9 @@ if os.path.exists('env.py'):
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get('MONGO_DBNAME')
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+
+
+app.secret_key = os.environ.get('SECRET_KEY')
 
 
 mongo = PyMongo(app)
