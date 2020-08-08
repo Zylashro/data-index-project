@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, flash
+from flask import Flask, render_template, redirect, request, url_for, flash, session
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -11,6 +11,7 @@ if os.path.exists('env.py'):
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get('MONGO_DBNAME')
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+app.secret_key = os.urandom(24)
 
 
 mongo = PyMongo(app)
@@ -30,7 +31,7 @@ def episode_lists():
 @app.route('/')
 @app.route('/home')
 def home_page():
-    return render_template('home.html', selected_home="selected")
+    return render_template('home.html', selected_home="selected", title='Home | Reunion Movement Index')
 
 
 @app.route('/enemy-list')
@@ -78,18 +79,23 @@ def enemy_index():
         
         paginate_results = get_records(offset=offset, per_page=per_page)
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
-        return render_template('enemy.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, attack=attack, level=level, search=search, radio=radio)
+        return render_template('enemy.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, attack=attack, level=level, search=search, radio=radio, title='Enemy Index | Reunion Movement Index')
 
     else:
         result = mongo.db.enemyIndexMDB.find()
         paginate_results = get_records(offset=offset, per_page=per_page)
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
-        return render_template('enemy.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, radio=radio)
+        return render_template('enemy.html', selected_enemy="selected", enemyIndexMDB=result, pagination=pagination, radio=radio, title='Enemy Index | Reunion Movement Index')
 
 
 @app.route('/enemy-list/<enemy_code>')
 def more_info_enemy(enemy_code):
+    if not ObjectId.is_valid(enemy_code):
+        return render_template('404.html', title='404: Page not found')
+
+
     the_enemy = mongo.db.enemyIndexMDB.find_one({'_id': ObjectId(enemy_code)})
+    
 
     stage_ids = []
     episode_ids = []
@@ -133,7 +139,7 @@ def more_info_enemy(enemy_code):
             })
             episode_card[e_id]['stages'] = stg_list
 
-    return render_template('moreInfoEnemy.html', enemy=the_enemy, episodes=episode_card)
+    return render_template('moreInfoEnemy.html', enemy=the_enemy, episodes=episode_card, title='More Info Enemy | Reunion Movement Index')
 
 
 @app.route('/stage-list')
@@ -176,17 +182,21 @@ def stage_index():
 
         paginate_results = get_records(result=result, offset=offset, per_page=per_page)
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
-        return render_template('stage.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, episode=episode, search=search)
+        return render_template('stage.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, episode=episode, search=search, title='Stage Index | Reunion Movement Index')
 
     else:
         result = mongo.db.stageIndexMDB.find()
         paginate_results = get_records(result=result, offset=offset, per_page=per_page)
         pagination = Pagination(page=page, per_page=per_page, total=result.count())
-        return render_template('stage.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination)
+        return render_template('stage.html', episode_names=episode_names, episodes=episodes, selected_stage="selected", stages=result, pagination=pagination, title='Stage Index | Reunion Movement Index')
 
 
 @app.route('/stage-list/<stage_code>')
 def more_info_stage(stage_code):
+    if not ObjectId.is_valid(stage_code):
+        return render_template('404.html', title='404: Page not found')
+
+
     the_stage = mongo.db.stageIndexMDB.find_one({'_id': ObjectId(stage_code)})
 
     enemy_ids = []
@@ -201,13 +211,11 @@ def more_info_stage(stage_code):
     episode_list = episode_lists()
     episode_names = episode_list['episode_names']
     
-    return render_template('moreInfoStage.html', episode_names=episode_names, stage=the_stage, enemies=enemies, occurrence=occurrence)
+    return render_template('moreInfoStage.html', episode_names=episode_names, stage=the_stage, enemies=enemies, occurrence=occurrence, title='More Info Stage | Reunion Movement Index')
 
 
 @app.route('/statistics')
 def statistics():
-    query = []
-    query_item = {}
     has_filter = False
     episode = ''
     enemy_numbers = {}
@@ -307,7 +315,7 @@ def statistics():
         'pie_enemy_number_labels': pie_enemy_number_labels
     }
     
-    return render_template('statistics.html', selected=episode, selected_statistics="selected", pie_data=pie_data, episodes=episodes)
+    return render_template('statistics.html', selected=episode, selected_statistics="selected", pie_data=pie_data, episodes=episodes, title='Statistics | Reunion Movement Index')
 
 
 if __name__ == '__main__':

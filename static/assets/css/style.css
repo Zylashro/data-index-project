@@ -153,6 +153,7 @@ h2 {
 
 .home__text {
     font-size: 1rem;
+    margin-bottom: .5em;
 }
 
 .home__about-icon {
@@ -327,22 +328,6 @@ h2 {
 
 .close-btn:hover {
     color: #ff00009a;
-}
-
-#backToTop {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-    z-index: 99;
-    font-size: 2rem;
-    border: none;
-    outline: none;
-    background-color: #ddd;
-    color: #747474;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 50%;
 }
 
 /* Filter By */
@@ -740,6 +725,7 @@ background: #ccc;
 .footer__social-links {
     display: block;
     text-align: center;
+    list-style-type: none;
 }
 
 .footer__social-link {
@@ -751,6 +737,12 @@ background: #ccc;
 
 .footer__social-link:hover {
     color: rgba(255, 255, 255, 1);
+}
+
+@media only screen and (min-width: 769px) {
+    .backToTop {
+        display: none !important;
+    }
 }
 
 /* Media Queries (WIP) */
@@ -801,10 +793,10 @@ background: #ccc;
 
     .navbar__dropdown-title {
         display: block;
-        height: 62px;
-        padding-top: 5px;
-        vertical-align: middle;
         color: #f1f1f1;
+        font-size: 1.3rem;
+        line-height: 1.2;
+        align-self: center;
     }
 
     .navbar__dropdown-icon {
@@ -920,6 +912,14 @@ background: #ccc;
         left: 30px;
     }
 
+    .filter-by__btn {
+        margin-left: .3em;
+        height: 30px;
+        padding: 5px;
+        font-size: .8rem;
+        line-height: 1.5;
+    }
+
     .table__enemy {
         grid-template-columns: repeat(4, auto);
         padding-right: 0;
@@ -990,6 +990,27 @@ background: #ccc;
 
     .episode-showcase__portrait {
         width: 120px;
+    }
+
+    .backToTop {
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        height: 60px;
+        width: 60px;
+        border: none;
+        outline: none;
+        background-color: #777;
+        color: #f1f1f1;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 50%;
+    }
+
+    #back-to-top-chevron {
+        padding-top: 10px;
+        font-size: 2rem;
     }
 
     .only-desktop {

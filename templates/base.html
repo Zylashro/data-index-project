@@ -6,7 +6,7 @@
         <script src="https://kit.fontawesome.com/7e899f220f.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}" type="text/css">
-        <title>Title of Project</title>
+        <title>{{title}}</title>
     </head>
     <body>
         <div id="overlay" class="page-overlay hidden"></div>
@@ -16,7 +16,7 @@
                     <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
                 </a>
             </div>
-            <h1 class="navbar__dropdown-title">Title of project</h1>
+            <h1 class="navbar__dropdown-title">Reunion Movement Index</h1>
             <div class="navbar__dropdown-icon"><i class="fas fa-bars" id="open-dropdown"></i></div>
             <div class="navbar__list hidden-mobile" id="dropdown-menu">
                 <a href="{{url_for('home_page')}}" class="navbar__item {{selected_home}}">
@@ -42,20 +42,24 @@
                 {% block content %}
                 {% endblock %}
             </div>
+            <div id="backToTop" class="backToTop">
+                <i class="fas fa-chevron-up back-to-top-chevron" id="back-to-top-chevron"></i>
+            </div>
             <footer class="footer__container">
                 <h4 class="footer__heading">
                     Keep in touch
                 </h4>
                 <div class="footer__social-links">
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+                    <a href="https://github.com/Zylashro" target="_blank" rel="noopener noreferrer" class="footer__social-link">
                         <i class="fab fa-github-square"></i>
                     </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+                    <a href="https://www.linkedin.com/in/dominik-jug-3aa2971a0/" target="_blank" rel="noopener noreferrer" class="footer__social-link">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
             </footer>
         </div>
+
         <script type="text/javascript" src="{{url_for('static', filename='src/base.js')}}"></script>
     </body>
 </html>
