@@ -3,8 +3,6 @@ env.py
 .flaskenv
 __pycache__/
 .vscode/settings.json
-devenv.py
-config.py
 node_modules/
 app_dev.py
 dataCheck.html
