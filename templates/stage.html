@@ -6,6 +6,7 @@
             <div class="search-bar">
                 <input type="text" name="search" placeholder="Search...">
                 <button type="submit" id="search-submit" class="search-btn"><i class="fa fa-search"></i></button>
+                <a href="{{url_for('stage_index')}}" class="filter-by__btn">Reset</a>
                 <div id="warning" class="search-warning hidden">You need to write at least 2 chars in search</div>
             </div>
             <div class="filter-by__inner-container">
@@ -39,30 +40,38 @@
             {% endwith %}
         </div>
         <div class="table__stage">
-            <div class="table__heading">
+            <div class="table__heading only-mobile">
+                <span>Stage Code</span>
+                Name
+            </div>
+            <div class="table__heading only-desktop">
                 Stage Code
             </div>
-            <div class="table__heading">
+            <div class="table__heading only-desktop">
                 Name
             </div>
             <div class="table__heading">
                 Episode Name
             </div>
-            <div class="table__heading">
+            <div class="table__heading only-desktop">
                 Total Enemies
             </div>
             <div class="table__heading"></div>
             {% for stage in stages %}
-                <div class="table__cell">
+                <div class="table__cell only-mobile">
+                    <span>{{stage.stage_code|upper}}</span>
+                    {{stage.name|title}}
+                </div>
+                <div class="table__cell only-desktop">
                     {{stage.stage_code|upper}}
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-desktop">
                     {{stage.name|title}}
                 </div>
                 <div class="table__cell">
                     {{episode_names[stage.episode]|title}}
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-desktop">
                     {{stage.total_enemies}}
                 </div>
                 <div class="table__cell table__last-cell">
@@ -73,9 +82,6 @@
             {% endfor %}
         </div>
         {{ pagination.links }}
-        <div id="backToTop">
-            <i class="fas fa-chevron-circle-up"></i>
-        </div>
     </section>
     
     <script type="text/javascript" src="{{url_for('static', filename='src/stage.js')}}"></script>
