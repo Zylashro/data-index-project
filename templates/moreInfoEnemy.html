@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="more-info__container">
-        <h1 class="section__heading">Enemy Info - {{enemy.name|title}}</h1>
+        <div class="back-button">
+            <i id="back" class="fas fa-arrow-circle-left"></i>
+        </div>
+        <h1 class="section__heading">Enemy Info<br>{{enemy.name|title}}</h1>
         
         <div class="more-info__enemy-container">
             <div class="more-info__enemy-image">
@@ -9,15 +12,15 @@
             </div>
             <div class="more-info__enemy">
                 <div class="more-info__heading">
-                    Enemy Code:
+                    Code:
                 </div>
                 <div class="more-info__data">
                     {{enemy.enemy_code|upper}}
                 </div>
-                <div class="more-info__heading">
+                <div class="more-info__heading only-desktop">
                     Name:
                 </div>
-                <div class="more-info__data">
+                <div class="more-info__data only-desktop">
                     {{enemy.name|title}}
                 </div>
                 <div class="more-info__heading">
@@ -32,8 +35,33 @@
                 <div class="more-info__data">
                     {{enemy.level|upper}}
                 </div>
+
+                <div class="more-info__heading only-mobile">
+                    Endurance:
+                </div>
+                <div class="more-info__data only-mobile">
+                    {{enemy.endurance|upper}}
+                </div>
+                <div class="more-info__heading only-mobile">
+                    Strength:
+                </div>
+                <div class="more-info__data only-mobile">
+                    {{enemy.attack|upper}}
+                </div>
+                <div class="more-info__heading only-mobile">
+                    Defense:
+                </div>
+                <div class="more-info__data only-mobile">
+                    {{enemy.defense|upper}}
+                </div>
+                <div class="more-info__heading only-mobile">
+                    Resist:
+                </div>
+                <div class="more-info__data only-mobile">
+                    {{enemy.resist|upper}}
+                </div>
             </div>
-            <div class="more-info__enemy">
+            <div class="more-info__enemy only-desktop">
                 <div class="more-info__heading">
                     Endurance:
                 </div>

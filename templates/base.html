@@ -6,7 +6,7 @@
         <script src="https://kit.fontawesome.com/7e899f220f.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}" type="text/css">
-        <title>Title of Project</title>
+        <title>{{title}}</title>
     </head>
     <body>
         <div id="overlay" class="page-overlay hidden"></div>
@@ -16,7 +16,9 @@
                     <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
                 </a>
             </div>
-            <div class="navbar__list">
+            <h1 class="navbar__dropdown-title">Reunion Movement Index</h1>
+            <div class="navbar__dropdown-icon"><i class="fas fa-bars" id="open-dropdown"></i></div>
+            <div class="navbar__list hidden-mobile" id="dropdown-menu">
                 <a href="{{url_for('home_page')}}" class="navbar__item {{selected_home}}">
                     <span class="navbar__link">Home</span>
                     <i class="fas fa-home navbar__icon"></i>
@@ -34,53 +36,30 @@
                     <i class="fas fa-chart-pie navbar__icon"></i>
                 </a>
             </div>
-            <div class="navbar__dropdown-container">
-                <a href="{{url_for('home_page')}}">
-                    <img src="../static/assets/images/icons/logo.png" alt="Site logo" class="navbar__site-icon">
-                </a>
-                <!-- <h1 class="navbar__dropdown-title">Title of project</h1> -->
-                <div class="navbar__dropdown-hover" id="open-dropdown"><i class="fas fa-bars"></i></div>
-                <div class="navbar__dropdown-menu hidden" id="dropdown-menu">
-                    <a href="" class="navbar__dropdown-item">Home</a>
-                    <a href="" class="navbar__dropdown-item">Enemy Index</a>
-                    <a href="" class="navbar__dropdown-item">Stage Index</a>
-                    <a href="" class="navbar__dropdown-item">Statistics</a>
-                </div>
-            </div>
         </nav>
-        <div class="content__container">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <footer class="footer__container">
-            <div class="footer__social">
+        <div class="page">
+            <div class="content__container">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div id="backToTop" class="backToTop">
+                <i class="fas fa-chevron-up back-to-top-chevron" id="back-to-top-chevron"></i>
+            </div>
+            <footer class="footer__container">
                 <h4 class="footer__heading">
                     Keep in touch
                 </h4>
-                <ul class="footer__social-links">
-                    <li class="footer__social-item">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="footer__social-link">
-                            <i class="fab fa-github-square"></i>
-                        </a>
-                    </li>
-                    <li class="footer__social-item">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="footer_social-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+                <div class="footer__social-links">
+                    <a href="https://github.com/Zylashro" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+                        <i class="fab fa-github-square"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/dominik-jug-3aa2971a0/" target="_blank" rel="noopener noreferrer" class="footer__social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </footer>
+        </div>
 
-<<<<<<< HEAD
-        <script type="text/javascript" src="{{url_for('static', filename='src/hideAndShow.js')}}"></script>
-        <script>
-            $('input[type="checkbox"]').on('change', function() {
-                $('input[name="' + this.name + '"]').not(this).prop('checked', false);
-            });
-        </script>
-=======
-        <script type="text/javascript" src="{{url_for('static', filename='src/dropdown.js')}}"></script>
->>>>>>> develop
+        <script type="text/javascript" src="{{url_for('static', filename='src/base.js')}}"></script>
     </body>
 </html>

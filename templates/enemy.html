@@ -6,9 +6,8 @@
             <div class="search-bar">
                 <input type="text" name="search" placeholder="Search...">
                 <button type="submit" id="search-submit" class="search-btn"><i class="fa fa-search"></i></button>
-                <button type="button" id="open-filter-btn" class="filter-by__btn">
-                    <i class="fas fa-filter"></i>
-                </button>
+                <button type="button" id="open-filter-btn" class="filter-by__btn"><i class="fas fa-filter"></i></button>
+                <a href="{{url_for('enemy_index')}}" class="filter-by__btn">Reset</a>
                 <div id="warning" class="hidden">You need to write at least 2 chars in search</div>
             </div>
             <div id="filter-menu" class="filter-by__container hidden">
@@ -35,7 +34,7 @@
                     {% endfor %}
                 </div>
                 <div class="filter-by__button-container">
-                    <button type="button" class="filter-by__reset" id="reset-filter">Reset</button>
+                    <button type="button" class="filter-by__reset" id="reset-filter">Clear</button>
                     <button type="submit">Submit</button>
                 </div>
                 <div id="close-filter-btn" class="close-btn">
@@ -59,57 +58,75 @@
         </div>
         <div class="table__enemy">
             <div class="table__heading"></div>
-            <div class="table__heading">
-                Enemy Code
+            <div class="table__heading only-mobile">
+                Name (Code)
             </div>
-            <div class="table__heading">
-                Name
-            </div>
-            <div class="table__heading">
-                Type
-            </div>
-            <div class="table__heading">
+            <div class="table__heading only-mobile">
+                Type<br>
                 Level
             </div>
-            <div class="table__heading">
+            <div class="table__heading only-desktop">
+                Code
+            </div>
+            <div class="table__heading only-desktop">
+                Name
+            </div>
+            <div class="table__heading only-desktop">
+                Type
+            </div>
+            <div class="table__heading only-desktop">
+                Level
+            </div>
+            <div class="table__heading only-desktop">
                 Endurance
             </div>
-            <div class="table__heading">
+            <div class="table__heading only-desktop">
                 Strength
             </div>
-            <div class="table__heading">
+            <div class="table__heading only-desktop">
                 Defense
             </div>
-            <div class="table__heading">
+            <div class="table__heading only-desktop">
                 Resist
             </div>
             <div class="table__heading"></div>
             {% for enemy in enemyIndexMDB %}
-                <div class="table__cell">
-                    <img src="{{enemy.portrait}}" class="table__portrait" alt="Portrait of enemy.">
+                <div class="table__cell cell-portrait">
+                    <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}">
+                        <img src="{{enemy.portrait}}" class="table__portrait" alt="Portrait of enemy.">
+                    </a>
                 </div>
-                <div class="table__cell">
-                    {{enemy.enemy_code|upper}}
-                </div>
-                <div class="table__cell">
+                <div class="table__cell only-mobile">
                     {{enemy.name|title}}
+                    ({{enemy.enemy_code|upper}})
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-mobile">
                     {{enemy.attack_type|title}}
-                </div>
-                <div class="table__cell">
+                    <br>
                     {{enemy.level|upper}}
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-desktop">
+                    {{enemy.enemy_code|upper}}
+                </div>
+                <div class="table__cell only-desktop">
+                    {{enemy.name|title}}
+                </div>
+                <div class="table__cell only-desktop">
+                    {{enemy.attack_type|title}}
+                </div>
+                <div class="table__cell only-desktop">
+                    {{enemy.level|upper}}
+                </div>
+                <div class="table__cell only-desktop">
                     {{enemy.endurance|upper}}
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-desktop">
                     {{enemy.attack|upper}}
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-desktop">
                     {{enemy.defense|upper}}
                 </div>
-                <div class="table__cell">
+                <div class="table__cell only-desktop">
                     {{enemy.resist|upper}}
                 </div>
                 <div class="table__cell table__last-cell">
@@ -120,9 +137,6 @@
             {% endfor %}
         </div>
         {{ pagination.links }}
-        <div id="backToTop">
-            <i class="fas fa-chevron-circle-up"></i>
-        </div>
     </section>
 
     <script type="text/javascript" src="{{url_for('static', filename='src/enemy.js')}}"></script>
