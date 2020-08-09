@@ -57,7 +57,7 @@
 
             return colors;
         }
-        // var pie_colors = [ '#F7464A', '#46BFBD', '#FDB45C', '#FEDCBA', '#ABCDEF', '#DDDDDD', '#ABCABC' ];
+        
         var maxItems = 7;
         var containerHeight = "";
         var pie_enemy_number_values = {{pie_enemy_number_values}};
@@ -69,6 +69,7 @@
             console.log(totalContainer);
             totalContainer.style.height = containerHeight+"px";
         }
+
         var pie_colors = calculateColors(maxItems);
         var pie_options = {
             legend: {
@@ -76,6 +77,7 @@
                 position: 'bottom'
             }
         };
+
         var ctx_attack_type = document.getElementById('attackType').getContext('2d');
         var chart_attack_type = new Chart(ctx_attack_type, {
             type: 'pie',

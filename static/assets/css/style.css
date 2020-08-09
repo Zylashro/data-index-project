@@ -210,27 +210,7 @@ h2 {
     color: rgba(119, 221, 119, .90);
 }
 
-.statistics__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.5em;
-}
 
-.statistics__attack {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-}
-
-.statistics__level {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-}
-
-.statistics__total {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
-}
 
 .enemy__header,
 .stage__header {
@@ -690,6 +670,28 @@ background: #ccc;
 }
 
 /* Statistics */
+
+.statistics__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5em;
+}
+
+.statistics__attack {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.statistics__level {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.statistics__total {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
 
 .pie-chart {
     width: calc(((100% - 240px) - 6em) / 2);

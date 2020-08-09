@@ -21,6 +21,8 @@ if (back) {
     }
 }
 
+// Back to top button
+
 topButton.onclick = (event) => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
