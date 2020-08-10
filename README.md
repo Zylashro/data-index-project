@@ -160,7 +160,7 @@ The result of the CSS Validator can be seen in the image below:
 
 ### JavaScript Validator
 
-The JS used in this project was tested with **[JSHint](https://jshint.com/)** to ensure bug free code and correct.
+The JS used in this project was tested with **[JSHint](https://jshint.com/)** to ensure bug free and correct code.
 
 Due to the fact that the JS for this project is split between five different files, I have opted to combine the results of each tested file into a single result for easier analytical purposes.
 
