@@ -24,6 +24,7 @@ This project is designed to be a simple index and chart project that displays da
 5. [**Testing**](#testing)
     - [**HTML Validator**](#html-validator)
     - [**CSS Validator**](#css-validator)
+    - [**JavaScript Validator**](#javascript-validator)
     - [**Browsers**](#browsers)
     - [**Manual Testing**](#manual-testing)
 6. [**Deployment**](#deployment)
@@ -156,6 +157,20 @@ The result of the HTML Validator can be seen in the image below:
 The result of the CSS Validator can be seen in the image below:
 
 ![CSS Validator](static/assets/images/designDocs/validators/css.png)
+
+### JavaScript Validator
+
+The JS used in this project was tested with **[JSHint](https://jshint.com/)** to ensure bug free code and correct.
+
+Due to the fact that the JS for this project is split between five different files, I have opted to combine the results of each tested file into a single result for easier analytical purposes.
+
+Each file has been separately tested to ensure lack of conflict between files.
+
+- Metrics:
+    - There are 19 functions in this project.
+    - Function with the largest signature take 1 arguments, while the median is 1.
+    - Largest function has 6 statements in it, while the median is 2.
+    - The most complex function has a cyclomatic complexity value of 3 while the median is 1.
 
 ### Browsers
 
