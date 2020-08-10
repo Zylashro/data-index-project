@@ -3,6 +3,7 @@
     <section class="enemy__header">
         <h1 class="section__heading">Enemy Index</h1>
         <form method="get" name="enemyForm">
+            <!-- Search input -->
             <div class="search-bar">
                 <input type="text" name="search" placeholder="Search...">
                 <button type="submit" id="search-submit" class="search-btn"><i class="fa fa-search"></i></button>
@@ -10,6 +11,7 @@
                 <a href="{{url_for('enemy_index')}}" class="filter-by__btn">Reset</a>
                 <div id="warning" class="search-warning hidden">You need to write at least 2 characters in order to search.</div>
             </div>
+            <!-- Filter menu -->
             <div id="filter-menu" class="filter-by__container hidden">
                 <div class="filter-by__inner-container">
                     <h2 class="filter-by__heading">
@@ -56,6 +58,7 @@
                 {% endif %}
             {% endwith %}
         </div>
+        <!-- Table of index -->
         <div class="table__enemy">
             <div class="table__heading"></div>
             <div class="table__heading only-mobile">

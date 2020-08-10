@@ -7,8 +7,8 @@
 This project is designed to be a simple index and chart project that displays data from a database to the user. The project serves to demonstrate my ability and understanding of Python and data.
 
 
-## Table of contents:
-1. [**Project**](#project)
+## Table of Contents:
+1. [**Project Overview**](#project-overview)
 2. [**UX**](#UX)
     - [**User Stories**](#user-stories)
 	- [**Mockup**](#mockup)
@@ -25,6 +25,7 @@ This project is designed to be a simple index and chart project that displays da
     - [**HTML Validator**](#html-validator)
     - [**CSS Validator**](#css-validator)
     - [**Browsers**](#browsers)
+    - [**Manual Testing**](#manual-testing)
 6. [**Deployment**](#deployment)
 7. [**Self-Reflection**](#self-reflection)
 8. [**Credits**](#credits)
@@ -33,7 +34,7 @@ This project is designed to be a simple index and chart project that displays da
 
 
 
-## Project
+## Project Overview
 
 The goal of this site is to display all the encounterable enemies in the mobile game, Arknights, as well as the basic info for each one. 
 
@@ -51,10 +52,10 @@ Due to the nature of the data being displayed, the demographic of users would mo
 
 ### Mockup
 
-A link that takes you to the mockup I made for this project. Note, that the links take you to a PDF file and do not display an image.
+A link that takes you to the mockup I made for this project. **Note, that the links take you to a PDF file and do not display an image!**
 
-![Mockup Desktop](static/assets/images/designDocs/mockup/data-index-desktop.pdf)
-![Mockup Mobile](static/assets/images/designDocs/mockup/data-index-mobile.pdf)
+- ![Mockup Desktop](static/assets/images/designDocs/mockup/data-index-desktop.pdf)
+- ![Mockup Mobile](static/assets/images/designDocs/mockup/data-index-mobile.pdf)
 
 ## Features
 
@@ -168,6 +169,12 @@ Chrome and Edge work as intended without issue.
 
 IE is broken with the table on both the indexes being out of line. The icon on the home page being displaced. And the charts not displaying at all.
 
+### Manual Testing
+
+For this project no automatic tests were developed. Thus, only manual testing was done to fix bugs and make sure everything works as intended.
+
+But, I have made a **[file](testing.md)** detailing the extent of the manual testing I have done.
+
 ## Deployment
 
 The process it took to deploy this project goes as follows:
@@ -185,21 +192,21 @@ cd data-index-project
 ```
 npm install
 ```
-- Install requirements with pip
+5. Install requirements with pip
 ```
 pip install requirements.txt
 ```
-- Create and activate your virtual environment
+6. Create and activate your virtual environment
 ```
 python venv env
 ```
-- Either create a seperate .py file, or in the app.py file add the following code
+7. Either create a seperate .py file, or in the app.py file add the following code
 ```python
 app.config["MONGO_DBNAME"] = 'ENTER_DBNAME'
 app.config["MONGO_URI"] = 'CONNECT_TO_YOUR_DB'
 app.secret_key = 'ENTER_SECRET_KEY'
 ```
-- Start the app
+8. Start the app
 ```
 python app.py
 ```

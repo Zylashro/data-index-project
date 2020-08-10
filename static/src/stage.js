@@ -4,6 +4,8 @@ const warning = document.querySelector('#warning');
 const selectSubmit = document.getElementById('episode');
 const stageForm = document.querySelector('[name="stageForm"]');
 
+
+// Submit search form. If search has less than two characters, show warning.
 searchSubmit.onclick = (event) => {
     event.preventDefault();
     warning.classList.add("hidden");
@@ -12,12 +14,14 @@ searchSubmit.onclick = (event) => {
     } else {
         warning.classList.remove("hidden");
     }
-}
+};
 
+// Submit select form on change.
 selectSubmit.onchange = (event) => {
     document.stageForm.submit();
 };
 
+// Submit form to filter the index.
 stageForm.onsubmit = (event) => {
     event.preventDefault();
     warning.classList.add("hidden");
@@ -26,8 +30,8 @@ stageForm.onsubmit = (event) => {
     } else {
         document.stageForm.submit();
     }
-}
+};
 
 warning.onclick = (event) => {
     warning.classList.add("hidden");
-}
+};

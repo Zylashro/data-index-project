@@ -9,6 +9,7 @@
     <section class="statistics__header">
         <h1 class="section__heading">Statistics</h1>
         <form method="get" name="typeForm">
+            <!-- Select menu -->
             <div class="filter-by__inner-container">
                 <label for="episode" class="filter-by__heading">
                     Select Episode:
@@ -27,14 +28,17 @@
         </form>
     </section>
     <section class="statistics__container">
+        <!-- Attack type pie chart -->
         <div class="statistics__attack">
             <h2>Average attack type:</h2>
             <canvas id="attackType" class="pie-chart"></canvas>
         </div>
+        <!-- Level type pie chart -->
         <div class="statistics__level">
             <h2>Average level type:</h2>
             <canvas id="levelType" class="pie-chart"></canvas>
         </div>
+        <!-- Total enemies bar chart -->
         {% if pie_enemy_number_values %}
             <div class="statistics__total">
                 <h2>Total enemies:</h2>
@@ -46,6 +50,7 @@
     </section>
         
     <script>
+        // Calculate colors for bar and pie charts.
         function calculateColors(number) {
             colors = [];
             while (colors.length < number) {
@@ -61,15 +66,16 @@
         var maxItems = 7;
         var containerHeight = "";
         var pie_enemy_number_values = {{pie_enemy_number_values}};
-        console.log(pie_enemy_number_values);
         var totalContainer = document.getElementById("totalEnemy");
+
+        // If values for total enemies bar char exceed seven change the height of the container.
         if (pie_enemy_number_values && pie_enemy_number_values.length > 7) {
             maxItems = pie_enemy_number_values.length;
             containerHeight = (maxItems * 18) + 40;
-            console.log(totalContainer);
             totalContainer.style.height = containerHeight+"px";
         }
 
+        // Set up color and other options for the pie charts.
         var pie_colors = calculateColors(maxItems);
         var pie_options = {
             legend: {
@@ -78,6 +84,7 @@
             }
         };
 
+        // Create attack type pie chart
         var ctx_attack_type = document.getElementById('attackType').getContext('2d');
         var chart_attack_type = new Chart(ctx_attack_type, {
             type: 'pie',
@@ -93,6 +100,7 @@
             options: pie_options
         });
 
+        // Create level type pie chart
         var ctx_level_type = document.getElementById('levelType').getContext('2d');
         var chart_level_type = new Chart(ctx_level_type, {
             type: 'pie',
@@ -108,6 +116,7 @@
             options: pie_options
         });
 
+        // Create total enemies bar chart
         if (pie_enemy_number_values && pie_enemy_number_values.length > 0) {
             var ctx_enemy_number = document.getElementById('enemyNumber').getContext('2d');
             var chart_enemy_number = new Chart(ctx_enemy_number, {

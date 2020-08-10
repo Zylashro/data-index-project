@@ -3,12 +3,14 @@
     <section class="stage__header">
         <h1 class="section__heading">Stage Index</h1>
         <form method="get" name="stageForm">
+            <!-- Search input -->
             <div class="search-bar">
                 <input type="text" name="search" placeholder="Search...">
                 <button type="submit" id="search-submit" class="search-btn"><i class="fa fa-search"></i></button>
                 <a href="{{url_for('stage_index')}}" class="filter-by__btn">Reset</a>
                 <div id="warning" class="search-warning hidden">You need to write at least 2 characters in order to search.</div>
             </div>
+            <!-- Select menu -->
             <div class="filter-by__inner-container">
                 <label for="episode" class="filter-by__heading">
                     Filter by episode:
@@ -39,6 +41,7 @@
                 {% endif %}
             {% endwith %}
         </div>
+        <!-- Table of index -->
         <div class="table__stage">
             <div class="table__heading only-mobile">
                 <span>Stage Code</span>

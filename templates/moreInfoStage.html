@@ -5,7 +5,7 @@
             <i id="back" class="fas fa-arrow-circle-left"></i>
         </div>
         <h1 class="section__heading">Stage Info<br>{{stage.name|title}}</h1>
-
+        <!-- More info table of index -->
         <div class="more-info__stage">
             <div class="more-info__heading">
                 Stage Code:
@@ -32,9 +32,9 @@
                 {{stage.total_enemies}}
             </div>
         </div>
+        <!-- Enemy list -->
         <h2>Enemies on this stage:</h2>
         <div class="more-info__episode-showcase">
-            
             {% for enemy in enemies %}
                 <div class="more-info__enemy-card">
                     <a href="{{url_for('more_info_enemy', enemy_code=enemy._id)}}">
