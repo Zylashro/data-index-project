@@ -15,9 +15,9 @@ This project is designed to be a simple index and chart project that displays da
 3. [**Features**](#features)
     - [**Home Page**](#home-page)
     - [**Enemy Index**](#enemy-index)
-    - [**More Info <Enemy>**](#more-info-enemy)
+    - [**More Info Enemy**](#more-info-enemy)
     - [**Stage Index**](#stage-index)
-    - [**More Info <Stage>**](#more-info-stage)
+    - [**More Info Stage**](#more-info-stage)
     - [**Statistics**](#statistics)
 4. [**Technologies**](#technologies)
     - [**Pips and Dependencies**](#pips-and-dependencies)
@@ -72,11 +72,11 @@ The user is able to use the search bar to narrow down the list. The list will on
 
 The user is able to open up a filter menu which allows them to narrow down the list by either the enemies attack or level type.
 
-On the page, there is also a more info icon that when clicked will take the user to that enemies more info page.
+On the page, there is also a more info icon that when clicked will take the user to that enemies more info page. The same result happens if the enemy portrait is clicked.
 
 The index is limited to display only ten records from the database at a time with pagination links at the bottom to display another ten.
 
-### More Info <Enemy>:
+### More Info Enemy:
 
 A page which displays the information for the specific enemy from the Enemy Index in a different formatting along with additional information such as the description of the enemy, and a list showcasing every episode and stage they appear in along with the how many there are in said stage. 
 
@@ -96,7 +96,7 @@ On the page, there is also a more info icon that when clicked will take the user
 
 The index is limited to display only ten records from the database at a time with pagination links at the bottom to display another ten.
 
-### More Info <Stage>:
+### More Info Stage:
 
 A page which displays the information for the specific stage from the Stage Index in a different formatting along with additional information such as a list of all enemies that can be found in the stage along with the number of times they appear.
 
