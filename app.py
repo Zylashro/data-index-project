@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 def episode_lists():
     episode_names = {}
     episodes = []
-    episode_list = mongo.db.episodes.find()
+    episode_list = mongo.db.episodes.find().sort("sort-index")
     for item in episode_list:
         episodes.append({'id': str(item['_id']), 'name': item['name']})
         episode_names[item['_id']] = item['name']

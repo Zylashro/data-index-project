@@ -172,7 +172,7 @@ IE is broken with the table on both the indexes being out of line. The icon on t
 
 The process it took to deploy this project goes as follows:
 
-1. Download and install **[Python](https://www.python.org/)** and **[npm](https://www.npmjs.com/)**.
+1. Download and install **[Python](https://www.python.org/)** and **[Node.js](https://nodejs.org/en/)**.
 2. Clone the repository
 ```
 git clone https://github.com/Zylashro/data-index-project.git
@@ -181,7 +181,7 @@ git clone https://github.com/Zylashro/data-index-project.git
 ```
 cd data-index-project
 ```
-4. After you've done that, make sure npm is installed and run the following to get all the JS dependencies
+4. After you've done that, make sure Node is installed and run the following to get all the JS dependencies
 ```
 npm install
 ```
